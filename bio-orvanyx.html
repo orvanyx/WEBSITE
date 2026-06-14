@@ -3,80 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orvanyx - Player Profile | Mugiwara Team</title>
-    
-    <!-- Favicon -->
+    <title>Orvanyx — Player Profile | Mugiwara Team</title>
     <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/6e8658079519.png">
     <link rel="apple-touch-icon" href="https://cdn.imgchest.com/files/6e8658079519.png">
-    
-    <!-- OpenGraph / Social Media Meta Tags -->
-    <meta name="description" content="Orvanyx - Gamification Specialist, Future Data Specialist, Mugiwara Team. Connect on Instagram, YouTube, X, and more.">
-    <meta property="og:title" content="Orvanyx - Player Profile">
+    <meta name="description" content="Orvanyx — Gamification Specialist, Future Data Specialist, Mugiwara Team.">
+    <meta property="og:title" content="Orvanyx — Player Profile">
     <meta property="og:description" content="Gamification Specialist • Future Data Specialist • Mugiwara Team • Messi the Best">
     <meta property="og:image" content="https://cdn.imgchest.com/files/f6112dd256df.jpg">
     <meta property="og:url" content="https://orvanyx.com/bio-orvanyx.html">
     <meta property="og:type" content="profile">
     <meta name="twitter:card" content="summary_large_image">
-    
     <link rel="stylesheet" href="bio-styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body class="onepiece-theme">
-    <!-- Home Page Navigation Button -->
-    <a href="index.html" class="nav-button" aria-label="Go to Home Page">
+
+    <a href="index.html" class="nav-button" aria-label="Home">
         <span class="nav-icon">🏠</span>
     </a>
 
-    <!-- Theme Toggle Button -->
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
         <span class="theme-icon">🏴‍☠️</span>
     </button>
 
-    <!-- Floating Music Deck Button -->
-    <button class="music-deck-toggle" id="musicDeckToggle" aria-label="Toggle Music Deck">
-        🎵
-    </button>
+    <button class="music-deck-toggle" id="musicDeckToggle" aria-label="Toggle Music Deck">🎵</button>
 
-    <!-- Floating Music Deck Panel -->
-    <div class="music-deck-panel" id="musicDeckPanel">
+    <div class="music-deck-panel" id="musicDeckPanel" role="region" aria-label="Music Player">
         <div class="music-deck-header">
             <h3 class="music-deck-title">🎮 Audio Deck</h3>
             <button class="music-deck-close" id="musicDeckClose" aria-label="Close">×</button>
         </div>
-        
         <div class="bio-music" data-profile="orvanyx">
             <audio class="music-player" preload="metadata" loop></audio>
-            
             <label class="music-control-label" for="song-select-orvanyx">Track Selection</label>
             <select id="song-select-orvanyx" class="music-select">
-                <option value="https://files.catbox.moe/0rutzl.mp3">One Piece</option>
-                <option value="https://files.catbox.moe/arr56m.mp3">Bink's Sake (Orvan Fav)</option>
+                <option value="https://files.catbox.moe/0rutzl.mp3">One Piece — We Are!</option>
+                <option value="https://files.catbox.moe/arr56m.mp3">Bink's Sake ⭐ (Orvan Fav)</option>
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Neon Arena</option>
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Boss Rush</option>
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3">Night Raid</option>
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Cyber Chase</option>
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">Digital Dreams</option>
             </select>
-            
             <div class="music-controls">
-                <button type="button" class="music-btn" data-action="play">Pause</button>
+                <button type="button" class="music-btn" data-action="play">Play</button>
                 <button type="button" class="music-btn" data-action="mute">Mute</button>
                 <button type="button" class="music-btn" data-action="prev">⏮ Prev</button>
                 <button type="button" class="music-btn" data-action="next">Next ⏭</button>
             </div>
-            
-            <label class="music-control-label" for="volume-orvanyx">Volume Control</label>
+            <label class="music-control-label" for="volume-orvanyx">Volume</label>
             <input id="volume-orvanyx" class="music-volume" type="range" min="0" max="1" step="0.01" value="0.5">
-            
             <div class="music-progress-container">
-                <input type="range" class="music-progress" min="0" max="100" value="0" step="0.1">
+                <input type="range" class="music-progress" min="0" max="100" value="0" step="0.1" aria-label="Seek">
             </div>
-            
-            <p class="music-status" aria-live="polite">Playing: We Are!</p>
-            
-            <div class="music-visualizer">
+            <p class="music-status" aria-live="polite">Click Play to start music</p>
+            <div class="music-visualizer" aria-hidden="true">
                 <div class="visualizer-bar"></div>
                 <div class="visualizer-bar"></div>
                 <div class="visualizer-bar"></div>
@@ -92,7 +75,7 @@
                 <div class="profile-pic-container">
                     <img src="https://cdn.imgchest.com/files/6e8658079519.png" alt="Straw Hat" class="straw-hat-decoration">
                     <div class="bio-avatar">
-                        <img src="https://cdn.imgchest.com/files/f6112dd256df.jpg" alt="Orvanyx Profile Picture">
+                        <img src="https://cdn.imgchest.com/files/f6112dd256df.jpg" alt="Orvanyx">
                     </div>
                 </div>
                 <h1 class="bio-name">Orvanyx</h1>
@@ -100,48 +83,47 @@
             </div>
 
             <div class="bio-links">
-                <a href="https://instagram.com/orvanyx" class="bio-link" style="animation-delay: 0.2s">
-                    <img src="https://cdn.imgchest.com/files/7d73ef7238be.png" alt="Instagram" class="link-custom-icon">
+                <a href="https://instagram.com/orvanyx" class="bio-link" style="animation-delay: 0.1s" target="_blank" rel="noopener">
+                    <img src="https://cdn.imgchest.com/files/7d73ef7238be.png" alt="" class="link-custom-icon" aria-hidden="true">
                     <span class="link-text">Instagram</span>
-                    <span class="link-arrow">→</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                 </a>
-                <a href="https://youtube.com/@orvanyx" class="bio-link" style="animation-delay: 0.3s">
-                    <img src="https://cdn.imgchest.com/files/77460b4a9c74.png" alt="YouTube" class="link-custom-icon">
+                <a href="https://youtube.com/@orvanyx" class="bio-link" style="animation-delay: 0.2s" target="_blank" rel="noopener">
+                    <img src="https://cdn.imgchest.com/files/77460b4a9c74.png" alt="" class="link-custom-icon" aria-hidden="true">
                     <span class="link-text">YouTube</span>
-                    <span class="link-arrow">→</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                 </a>
-                <a href="https://x.com/orvanyx" class="bio-link" style="animation-delay: 0.4s">
-                    <img src="https://cdn.imgchest.com/files/adda2b28c2c3.png" alt="X" class="link-custom-icon">
+                <a href="https://x.com/orvanyx" class="bio-link" style="animation-delay: 0.3s" target="_blank" rel="noopener">
+                    <img src="https://cdn.imgchest.com/files/adda2b28c2c3.png" alt="" class="link-custom-icon" aria-hidden="true">
                     <span class="link-text">X (Twitter)</span>
-                    <span class="link-arrow">→</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                 </a>
-                <a href="https://orvanyx.com" class="bio-link" style="animation-delay: 0.5s">
-                    <img src="https://cdn.imgchest.com/files/88afa5a23db8.png" alt="Website" class="link-custom-icon">
+                <a href="https://orvanyx.com" class="bio-link" style="animation-delay: 0.4s" target="_blank" rel="noopener">
+                    <img src="https://cdn.imgchest.com/files/88afa5a23db8.png" alt="" class="link-custom-icon" aria-hidden="true">
                     <span class="link-text">Website</span>
-                    <span class="link-arrow">→</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                 </a>
-                <a href="mailto:orvanyx@orvanyx.com" class="bio-link" style="animation-delay: 0.6s">
-                    <img src="https://cdn.imgchest.com/files/091bc82a9ca1.png" alt="Contact" class="link-custom-icon">
+                <a href="mailto:orvanyx@orvanyx.com" class="bio-link" style="animation-delay: 0.5s">
+                    <img src="https://cdn.imgchest.com/files/091bc82a9ca1.png" alt="" class="link-custom-icon" aria-hidden="true">
                     <span class="link-text">Contact</span>
-                    <span class="link-arrow">→</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
+                </a>
+                <a href="ppl.html" class="bio-link" style="animation-delay: 0.6s">
+                    <span class="link-icon">⚽</span>
+                    <span class="link-text">Pirate Premier League</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                 </a>
             </div>
         </div>
     </div>
+
     <script src="bio-music.js"></script>
     <script>
-        // Theme toggle functionality
         const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        
         themeToggle.addEventListener('click', () => {
-            body.classList.toggle('onepiece-theme');
-            
-            if (body.classList.contains('onepiece-theme')) {
-                themeToggle.querySelector('.theme-icon').textContent = '🏴‍☠️';
-            } else {
-                themeToggle.querySelector('.theme-icon').textContent = '🎨';
-            }
+            document.body.classList.toggle('onepiece-theme');
+            themeToggle.querySelector('.theme-icon').textContent =
+                document.body.classList.contains('onepiece-theme') ? '🏴‍☠️' : '🎨';
         });
     </script>
 </body>
