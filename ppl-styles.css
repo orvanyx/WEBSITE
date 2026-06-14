@@ -1,0 +1,921 @@
+/* ============================================================
+   PIRATE PREMIER LEAGUE — PPL STYLES
+   Theme: Pirate × Football (DLS Mobile Community)
+   ============================================================ */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* PPL Palette — Deep ocean navy + pirate gold + blood red */
+    --ppl-bg:        #060d18;
+    --ppl-bg2:       #0d1a2b;
+    --ppl-bg3:       #122034;
+    --ppl-gold:      #f0c040;
+    --ppl-gold2:     #e8a010;
+    --ppl-red:       #c0392b;
+    --ppl-red2:      #e74c3c;
+    --ppl-green:     #27ae60;
+    --ppl-text:      #dce8f0;
+    --ppl-muted:     rgba(220,232,240,0.55);
+    --ppl-border:    rgba(240,192,64,0.2);
+    --ppl-border2:   rgba(240,192,64,0.08);
+    --font-display:  'Cinzel Decorative', 'Orbitron', serif;
+    --font-title:    'Cinzel', 'Orbitron', serif;
+    --font-body:     'Rajdhani', sans-serif;
+    --font-mono:     'Rajdhani', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-body);
+    background: var(--ppl-bg);
+    color: var(--ppl-text);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ============================================================
+   CUSTOM CURSOR — Pirate hat
+   ============================================================ */
+body, a, button, input, select {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="26" font-size="26">🏴‍☠️</text></svg>') 0 0, auto;
+}
+
+a:hover, button:hover {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="26" font-size="26">⚽</text></svg>') 0 0, pointer;
+}
+
+/* ============================================================
+   ANIMATED BG — Ocean waves grid
+   ============================================================ */
+.ppl-bg-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ppl-bg-layer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(240,192,64,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240,192,64,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridDrift 25s linear infinite;
+}
+
+.ppl-bg-layer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 25%, rgba(192,57,43,0.18), transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(240,192,64,0.12), transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(13,26,43,0.6), transparent 70%);
+}
+
+@keyframes gridDrift {
+    from { transform: translateY(0) translateX(0); }
+    to   { transform: translateY(60px) translateX(0); }
+}
+
+/* Floating particles */
+.ppl-particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--ppl-gold);
+    opacity: 0;
+    animation: particleFloat var(--dur, 8s) ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes particleFloat {
+    0%   { opacity: 0; transform: translateY(100vh) scale(0); }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-10vh) scale(1.5); }
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--ppl-bg); }
+::-webkit-scrollbar-thumb { background: var(--ppl-gold2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ppl-gold); }
+
+/* ============================================================
+   NAV BUTTON
+   ============================================================ */
+.ppl-nav-btn {
+    position: fixed;
+    top: 1.2rem;
+    left: 1.2rem;
+    z-index: 100;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(240,192,64,0.1);
+    border: 2px solid rgba(240,192,64,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.ppl-nav-btn:hover {
+    background: rgba(240,192,64,0.2);
+    border-color: var(--ppl-gold);
+    box-shadow: 0 0 20px rgba(240,192,64,0.4);
+    transform: scale(1.1);
+}
+
+/* ============================================================
+   PPL HERO HEADER
+   ============================================================ */
+.ppl-header {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 5rem 2rem 3rem;
+}
+
+.ppl-crest {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    filter: drop-shadow(0 0 20px rgba(240,192,64,0.6));
+    animation: crestFloat 4s ease-in-out infinite;
+}
+
+@keyframes crestFloat {
+    0%, 100% { transform: translateY(0) rotate(-2deg); filter: drop-shadow(0 0 20px rgba(240,192,64,0.6)); }
+    50%       { transform: translateY(-8px) rotate(2deg); filter: drop-shadow(0 0 35px rgba(240,192,64,0.9)); }
+}
+
+.ppl-league-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--ppl-gold);
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 30px rgba(240,192,64,0.5), 0 2px 0 rgba(0,0,0,0.8);
+    animation: titleGlow 3s ease-in-out infinite alternate;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+}
+
+@keyframes titleGlow {
+    from { text-shadow: 0 0 20px rgba(240,192,64,0.4); }
+    to   { text-shadow: 0 0 40px rgba(240,192,64,0.8), 0 0 80px rgba(240,192,64,0.3); }
+}
+
+.ppl-league-sub {
+    font-family: var(--font-body);
+    font-size: clamp(0.75rem, 2vw, 0.95rem);
+    letter-spacing: 0.3em;
+    color: var(--ppl-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+}
+
+.ppl-badge-row {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.ppl-badge {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.ppl-badge.gold {
+    background: rgba(240,192,64,0.12);
+    border: 1px solid rgba(240,192,64,0.4);
+    color: var(--ppl-gold);
+}
+
+.ppl-badge.red {
+    background: rgba(192,57,43,0.12);
+    border: 1px solid rgba(192,57,43,0.45);
+    color: var(--ppl-red2);
+}
+
+.ppl-badge.green {
+    background: rgba(39,174,96,0.1);
+    border: 1px solid rgba(39,174,96,0.35);
+    color: var(--ppl-green);
+}
+
+/* Gold divider */
+.ppl-divider {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ppl-gold), transparent);
+    opacity: 0.4;
+}
+
+/* ============================================================
+   MAIN CONTAINER
+   ============================================================ */
+.ppl-main {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem 5rem;
+}
+
+/* Section label */
+.section-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ppl-gold);
+    opacity: 0.7;
+    margin-bottom: 0.6rem;
+}
+
+.section-title {
+    font-family: var(--font-title);
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: 700;
+    color: var(--ppl-text);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   SEARCH BAR
+   ============================================================ */
+.search-wrap {
+    max-width: 540px;
+    margin: 0 auto 3rem;
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.ppl-search {
+    width: 100%;
+    padding: 0.9rem 1.2rem 0.9rem 3rem;
+    background: rgba(240,192,64,0.05);
+    border: 1.5px solid rgba(240,192,64,0.25);
+    border-radius: 8px;
+    color: var(--ppl-text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.ppl-search::placeholder { color: var(--ppl-muted); }
+
+.ppl-search:focus {
+    border-color: var(--ppl-gold);
+    background: rgba(240,192,64,0.08);
+    box-shadow: 0 0 20px rgba(240,192,64,0.15);
+}
+
+/* ============================================================
+   PLAYER GRID
+   ============================================================ */
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.player-card {
+    position: relative;
+    background: var(--ppl-bg2);
+    border: 1px solid var(--ppl-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.player-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ppl-red), var(--ppl-gold));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.player-card:hover {
+    border-color: rgba(240,192,64,0.45);
+    background: var(--ppl-bg3);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(240,192,64,0.12), 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.player-card:hover::before { opacity: 1; }
+
+.player-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.player-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(240,192,64,0.4);
+    background: linear-gradient(135deg, var(--ppl-bg3), #1a2d45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: border-color 0.3s ease;
+}
+
+.player-card:hover .player-avatar {
+    border-color: var(--ppl-gold);
+    box-shadow: 0 0 15px rgba(240,192,64,0.3);
+}
+
+.player-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.player-card-info h3 {
+    font-family: var(--font-title);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ppl-gold);
+    letter-spacing: 0.08em;
+}
+
+.player-card-info .player-handle {
+    font-size: 0.78rem;
+    color: var(--ppl-muted);
+    letter-spacing: 0.1em;
+}
+
+.player-card-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.card-stat {
+    text-align: center;
+    flex: 1;
+}
+
+.card-stat-num {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ppl-gold);
+    line-height: 1;
+}
+
+.card-stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ppl-muted);
+    margin-top: 0.2rem;
+}
+
+.player-card-trophies {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+}
+
+.trophy-mini {
+    font-size: 1rem;
+    line-height: 1;
+    filter: drop-shadow(0 0 4px rgba(240,192,64,0.4));
+}
+
+.no-results {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--ppl-muted);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   DISCORD SECTION
+   ============================================================ */
+.discord-section {
+    margin-bottom: 4rem;
+}
+
+.discord-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (max-width: 780px) {
+    .discord-layout { grid-template-columns: 1fr; }
+}
+
+.discord-widget-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(88,101,242,0.35);
+    box-shadow: 0 4px 30px rgba(88,101,242,0.15);
+}
+
+.discord-widget-wrap iframe {
+    display: block;
+}
+
+.discord-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.discord-info-card {
+    background: var(--ppl-bg2);
+    border: 1px solid var(--ppl-border);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+}
+
+.discord-info-card h4 {
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--ppl-gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.discord-info-card p {
+    font-size: 0.88rem;
+    color: var(--ppl-muted);
+    line-height: 1.6;
+    word-break: break-all;
+}
+
+.discord-info-card code {
+    font-family: monospace;
+    background: rgba(240,192,64,0.07);
+    color: var(--ppl-gold);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+}
+
+.join-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.8rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #5865F2, #7289da);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.join-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(88,101,242,0.45);
+}
+
+/* ============================================================
+   PLAYER PROFILE PAGE
+   ============================================================ */
+.ppl-profile-page {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5.5rem 1.5rem 5rem;
+}
+
+/* Profile hero */
+.profile-hero {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    padding: 2rem;
+    background: var(--ppl-bg2);
+    border: 1px solid var(--ppl-border);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--ppl-red), var(--ppl-gold), var(--ppl-red));
+    background-size: 200% 100%;
+    animation: heroBar 3s linear infinite;
+}
+
+@keyframes heroBar {
+    from { background-position: 0% 0%; }
+    to   { background-position: 200% 0%; }
+}
+
+.profile-pic-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--ppl-gold);
+    box-shadow: 0 0 30px rgba(240,192,64,0.35);
+    background: linear-gradient(135deg, #1a2d45, #0d1a2b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    overflow: hidden;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-position-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background: var(--ppl-red);
+    border: 2px solid var(--ppl-bg);
+    border-radius: 6px;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.profile-meta {
+    flex: 1;
+}
+
+.profile-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--ppl-gold);
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 20px rgba(240,192,64,0.4);
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+}
+
+.profile-title {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ppl-muted);
+    margin-bottom: 0.8rem;
+}
+
+.profile-badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 580px) {
+    .profile-hero {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile-badges { justify-content: center; }
+}
+
+/* ============================================================
+   STATS SECTIONS
+   ============================================================ */
+.profile-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.profile-section {
+    background: var(--ppl-bg2);
+    border: 1px solid var(--ppl-border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.profile-section-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--ppl-border2);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(240,192,64,0.03);
+}
+
+.profile-section-header h3 {
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ppl-gold);
+}
+
+.profile-section-icon {
+    font-size: 1.1rem;
+}
+
+/* Stats grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0;
+}
+
+.stat-cell {
+    padding: 1.2rem 1rem;
+    text-align: center;
+    border-right: 1px solid var(--ppl-border2);
+    border-bottom: 1px solid var(--ppl-border2);
+    transition: background 0.2s ease;
+}
+
+.stat-cell:hover {
+    background: rgba(240,192,64,0.04);
+}
+
+.stat-cell:last-child, .stat-cell:nth-child(4n) {
+    border-right: none;
+}
+
+.stat-num {
+    font-family: var(--font-title);
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+}
+
+.stat-num.gold   { color: var(--ppl-gold); }
+.stat-num.green  { color: var(--ppl-green); }
+.stat-num.red    { color: var(--ppl-red2); }
+.stat-num.white  { color: var(--ppl-text); }
+
+.stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ppl-muted);
+}
+
+/* Full table */
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stats-table thead th {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    font-family: var(--font-title);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ppl-gold);
+    opacity: 0.8;
+    border-bottom: 1px solid var(--ppl-border2);
+    background: rgba(240,192,64,0.03);
+}
+
+.stats-table tbody tr {
+    border-bottom: 1px solid var(--ppl-border2);
+    transition: background 0.2s ease;
+}
+
+.stats-table tbody tr:last-child { border-bottom: none; }
+.stats-table tbody tr:hover { background: rgba(240,192,64,0.04); }
+
+.stats-table tbody td {
+    padding: 0.85rem 1rem;
+    font-size: 0.92rem;
+    color: var(--ppl-text);
+}
+
+.stats-table tbody td:first-child {
+    font-weight: 600;
+    color: var(--ppl-muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.stats-table .td-num {
+    font-family: var(--font-title);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.td-gold   { color: var(--ppl-gold) !important; }
+.td-green  { color: var(--ppl-green) !important; }
+.td-red    { color: var(--ppl-red2) !important; }
+.td-white  { color: var(--ppl-text) !important; }
+
+/* ============================================================
+   TROPHIES SECTION
+   ============================================================ */
+.trophies-grid {
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.trophy-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(240,192,64,0.06);
+    border: 1px solid rgba(240,192,64,0.18);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.trophy-item:hover {
+    background: rgba(240,192,64,0.12);
+    border-color: rgba(240,192,64,0.4);
+    transform: scale(1.03);
+}
+
+.trophy-item.league {
+    border-color: rgba(240,192,64,0.3);
+}
+
+.trophy-item.champions {
+    border-color: rgba(88,101,242,0.4);
+    background: rgba(88,101,242,0.06);
+}
+
+.trophy-item.champions:hover {
+    background: rgba(88,101,242,0.12);
+}
+
+.trophy-item.award {
+    border-color: rgba(39,174,96,0.3);
+    background: rgba(39,174,96,0.06);
+}
+
+.trophy-item.award:hover {
+    background: rgba(39,174,96,0.12);
+}
+
+.trophy-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 6px rgba(240,192,64,0.5));
+    line-height: 1;
+}
+
+.trophy-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.trophy-name {
+    font-family: var(--font-title);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--ppl-text);
+    letter-spacing: 0.06em;
+}
+
+.trophy-count {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ppl-muted);
+}
+
+/* ============================================================
+   SEASON TABLE SECTION
+   ============================================================ */
+.season-table-wrap {
+    overflow-x: auto;
+    padding: 0.5rem 0;
+}
+
+/* ============================================================
+   BACK BUTTON
+   ============================================================ */
+.ppl-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    background: rgba(240,192,64,0.07);
+    border: 1px solid rgba(240,192,64,0.25);
+    color: var(--ppl-gold);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+}
+
+.ppl-back-btn:hover {
+    background: rgba(240,192,64,0.14);
+    border-color: var(--ppl-gold);
+    transform: translateX(-3px);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+    .ppl-header { padding-top: 4rem; }
+    .ppl-profile-page { padding-top: 4.5rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .trophies-grid { gap: 0.6rem; }
+}
