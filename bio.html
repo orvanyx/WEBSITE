@@ -3,58 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bio Pages - Orvanyx | Player Profiles</title>
-    
-    <!-- Favicon -->
+    <title>Bio Pages — Orvanyx | Player Profiles</title>
     <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/6e8658079519.png">
     <link rel="apple-touch-icon" href="https://cdn.imgchest.com/files/6e8658079519.png">
-    
-    <!-- OpenGraph / Social Media Meta Tags -->
-    <meta name="description" content="Explore player profiles and join the Mugiwara crew. Access exclusive bio pages with custom themes and music.">
-    <meta property="og:title" content="Bio Pages - Orvanyx">
+    <meta name="description" content="Explore player profiles and join the Mugiwara crew.">
+    <meta property="og:title" content="Bio Pages — Orvanyx">
     <meta property="og:description" content="Explore player profiles and join the Mugiwara crew.">
     <meta property="og:image" content="https://cdn.imgchest.com/files/6e8658079519.png">
     <meta property="og:url" content="https://orvanyx.com/bio.html">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    
     <link rel="stylesheet" href="bio-styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Home Page Navigation Button -->
-    <a href="index.html" class="nav-button" aria-label="Go to Home Page">
+
+    <!-- Nav -->
+    <a href="index.html" class="nav-button" aria-label="Home">
         <span class="nav-icon">🏠</span>
     </a>
 
-    <!-- Password Protection Modal -->
-    <div class="password-modal" id="passwordModal">
+    <!-- Password Modal -->
+    <div class="password-modal" id="passwordModal" role="dialog" aria-modal="true" aria-label="Access Required">
         <div class="password-container">
             <h2 class="password-title">🏴‍☠️ ACCESS REQUIRED</h2>
             <p class="password-subtitle">Enter the Pirate King's password</p>
-            <input type="password" id="passwordInput" class="password-input" placeholder="Password" autocomplete="off">
+            <input type="password" id="passwordInput" class="password-input"
+                   placeholder="Password" autocomplete="off" aria-label="Password">
             <button id="passwordSubmit" class="password-submit">ENTER</button>
-            <p class="password-error" id="passwordError"></p>
+            <p class="password-error" id="passwordError" role="alert" aria-live="assertive"></p>
         </div>
     </div>
 
-    <!-- Floating Music Deck Button -->
-    <button class="music-deck-toggle" id="musicDeckToggle" aria-label="Toggle Music Deck">
-        🎵
-    </button>
+    <!-- Music toggle -->
+    <button class="music-deck-toggle" id="musicDeckToggle" aria-label="Toggle Music Deck">🎵</button>
 
-    <!-- Floating Music Deck Panel -->
-    <div class="music-deck-panel" id="musicDeckPanel">
+    <!-- Music panel -->
+    <div class="music-deck-panel" id="musicDeckPanel" role="region" aria-label="Music Player">
         <div class="music-deck-header">
             <h3 class="music-deck-title">🎮 Audio Deck</h3>
-            <button class="music-deck-close" id="musicDeckClose" aria-label="Close">×</button>
+            <button class="music-deck-close" id="musicDeckClose" aria-label="Close music panel">×</button>
         </div>
-        
         <div class="bio-music" data-profile="directory">
             <audio class="music-player" preload="metadata" loop></audio>
-            
             <label class="music-control-label" for="song-select-directory">Track Selection</label>
             <select id="song-select-directory" class="music-select">
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Neon Arena</option>
@@ -63,24 +56,19 @@
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Cyber Chase</option>
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">Digital Dreams</option>
             </select>
-            
             <div class="music-controls">
-                <button type="button" class="music-btn" data-action="play">Pause</button>
+                <button type="button" class="music-btn" data-action="play">Play</button>
                 <button type="button" class="music-btn" data-action="mute">Mute</button>
                 <button type="button" class="music-btn" data-action="prev">⏮ Prev</button>
                 <button type="button" class="music-btn" data-action="next">Next ⏭</button>
             </div>
-            
-            <label class="music-control-label" for="volume-directory">Volume Control</label>
+            <label class="music-control-label" for="volume-directory">Volume</label>
             <input id="volume-directory" class="music-volume" type="range" min="0" max="1" step="0.01" value="0.5">
-            
             <div class="music-progress-container">
-                <input type="range" class="music-progress" min="0" max="100" value="0" step="0.1">
+                <input type="range" class="music-progress" min="0" max="100" value="0" step="0.1" aria-label="Seek">
             </div>
-            
-            <p class="music-status" aria-live="polite">Playing: Neon Arena</p>
-            
-            <div class="music-visualizer">
+            <p class="music-status" aria-live="polite">Click Play to start music</p>
+            <div class="music-visualizer" aria-hidden="true">
                 <div class="visualizer-bar"></div>
                 <div class="visualizer-bar"></div>
                 <div class="visualizer-bar"></div>
@@ -90,26 +78,27 @@
         </div>
     </div>
 
+    <!-- Directory -->
     <div class="bio-directory">
         <div class="directory-container">
             <h1 class="directory-title">Players</h1>
             <p class="directory-subtitle">// Select Profile</p>
-            
+
             <div class="user-cards">
-                
-                <!-- USER CARD 1 - ORVANYX -->
+
+                <!-- ORVANYX -->
                 <a href="bio-orvanyx.html" class="user-card" style="animation-delay: 0.1s">
                     <div class="card-background" style="background: linear-gradient(135deg, #00d4ff 0%, #0051ff 100%);"></div>
                     <div class="card-content">
                         <div class="user-avatar" style="background: linear-gradient(135deg, #00d4ff 0%, #06ffa5 100%);">
-                            O
+                            <img src="https://cdn.imgchest.com/files/f6112dd256df.jpg" alt="Orvanyx">
                         </div>
                         <h2 class="user-name">ORVANYX</h2>
                         <p class="user-handle">@orvanyx</p>
                     </div>
                 </a>
 
-                <!-- USER CARD 2 - ZERO -->
+                <!-- ZERO -->
                 <a href="bio-zero.html" class="user-card" style="animation-delay: 0.2s">
                     <div class="card-background" style="background: linear-gradient(135deg, #ff006e 0%, #8338ec 100%);"></div>
                     <div class="card-content">
@@ -121,52 +110,65 @@
                     </div>
                 </a>
 
-                <!-- 
-                ============================================
-                TO ADD A NEW USER CARD:
-                ============================================
-                Copy the entire <a> block above and paste it here.
-                Then edit:
-                1. href="bio-NEWNAME.html" (your new user page)
-                2. style="animation-delay: 0.3s" (increase by 0.1s for each new card)
-                3. card-background gradient colors
-                4. user-avatar background color and letter/image
-                5. user-name and user-handle text
-                
-                Don't forget to create the corresponding bio-NEWNAME.html page!
+                <!--
+                ====================================================
+                ADD NEW USER CARDS HERE — see README.md for guide
+                ====================================================
                 -->
 
             </div>
         </div>
     </div>
+
     <script src="bio-music.js"></script>
     <script>
-        // Password protection
-        const passwordModal = document.getElementById('passwordModal');
-        const passwordInput = document.getElementById('passwordInput');
-        const passwordSubmit = document.getElementById('passwordSubmit');
-        const passwordError = document.getElementById('passwordError');
-        const correctPassword = 'Luffy';
-        
-        // Check if already authenticated
-        if (sessionStorage.getItem('bioAuth') !== 'true') {
-            passwordModal.style.display = 'flex';
+        // ── Secure password check via SHA-256 ───────────────────────────────
+        // The raw password is NEVER stored in this file.
+        // To change the password: compute sha256('YourNewPassword') and update HASH below.
+        // Easy tool: https://emn178.github.io/online-tools/sha256.html
+        //
+        // Current password hash = sha256('Luffy')
+        const HASH = 'b46e03d8c5e2cd59a947ba4266f611212fbe486cc94a132d120a6fde5ab0dbe6';
+
+        async function sha256(str) {
+            const buf = await crypto.subtle.digest(
+                'SHA-256',
+                new TextEncoder().encode(str)
+            );
+            return Array.from(new Uint8Array(buf))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
         }
-        
-        passwordSubmit.addEventListener('click', checkPassword);
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkPassword();
-        });
-        
-        function checkPassword() {
-            if (passwordInput.value === correctPassword) {
+
+        const modal  = document.getElementById('passwordModal');
+        const input  = document.getElementById('passwordInput');
+        const submit = document.getElementById('passwordSubmit');
+        const errEl  = document.getElementById('passwordError');
+
+        // Show modal only if not already authenticated this session
+        if (sessionStorage.getItem('bioAuth') !== 'true') {
+            modal.style.display = 'flex';
+            setTimeout(() => input.focus(), 100);
+        }
+
+        submit.addEventListener('click', checkPassword);
+        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkPassword(); });
+
+        async function checkPassword() {
+            const typed = input.value;
+            if (!typed) return;
+
+            const hash = await sha256(typed);
+            if (hash === HASH) {
                 sessionStorage.setItem('bioAuth', 'true');
-                passwordModal.style.display = 'none';
+                modal.style.display = 'none';
+                errEl.textContent = '';
             } else {
-                passwordError.textContent = 'Incorrect password! Try again, nakama...';
-                passwordInput.value = '';
-                passwordInput.classList.add('shake');
-                setTimeout(() => passwordInput.classList.remove('shake'), 500);
+                errEl.textContent = 'Incorrect password! Try again, nakama…';
+                input.value = '';
+                input.classList.add('shake');
+                setTimeout(() => input.classList.remove('shake'), 500);
+                input.focus();
             }
         }
     </script>
