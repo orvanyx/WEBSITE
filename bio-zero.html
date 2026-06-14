@@ -3,80 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero - Player Profile | Developer & Designer</title>
-    
-    <!-- Favicon -->
+    <title>Zero — Player Profile | Developer & Designer</title>
     <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/6e8658079519.png">
     <link rel="apple-touch-icon" href="https://cdn.imgchest.com/files/6e8658079519.png">
-    
-    <!-- OpenGraph / Social Media Meta Tags -->
-    <meta name="description" content="Zero - Developer, Designer, Creating Digital Experiences. Connect on GitHub, LinkedIn, Dribbble, and more.">
-    <meta property="og:title" content="Zero - Player Profile">
+    <meta name="description" content="Zero — Developer, Designer, Creating Digital Experiences.">
+    <meta property="og:title" content="Zero — Player Profile">
     <meta property="og:description" content="Developer • Designer • Creating Digital Experiences">
     <meta property="og:image" content="https://cdn.imgchest.com/files/f6112dd256df.jpg">
     <meta property="og:url" content="https://orvanyx.com/bio-zero.html">
     <meta property="og:type" content="profile">
     <meta name="twitter:card" content="summary_large_image">
-    
     <link rel="stylesheet" href="bio-styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Home Page Navigation Button -->
-    <a href="index.html" class="nav-button" aria-label="Go to Home Page">
+
+    <a href="index.html" class="nav-button" aria-label="Home">
         <span class="nav-icon">🏠</span>
     </a>
 
-    <!-- Theme Toggle Button -->
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
         <span class="theme-icon">🎨</span>
     </button>
 
-    <!-- Floating Music Deck Button -->
-    <button class="music-deck-toggle" id="musicDeckToggle" aria-label="Toggle Music Deck">
-        🎵
-    </button>
+    <button class="music-deck-toggle" id="musicDeckToggle" aria-label="Toggle Music Deck">🎵</button>
 
-    <!-- Floating Music Deck Panel -->
-    <div class="music-deck-panel" id="musicDeckPanel">
+    <div class="music-deck-panel" id="musicDeckPanel" role="region" aria-label="Music Player">
         <div class="music-deck-header">
             <h3 class="music-deck-title">🎮 Audio Deck</h3>
             <button class="music-deck-close" id="musicDeckClose" aria-label="Close">×</button>
         </div>
-        
         <div class="bio-music" data-profile="zero">
             <audio class="music-player" preload="metadata" loop></audio>
-            
             <label class="music-control-label" for="song-select-zero">Track Selection</label>
             <select id="song-select-zero" class="music-select">
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Neon Arena</option>
-                <option value="https://files.catbox.moe/0rutzl.mp3">One Piece</option>
-                <option value="https://files.catbox.moe/arr56m.mp3">Bink's Sake (Orvan Fav)</option>
+                <option value="https://files.catbox.moe/0rutzl.mp3">One Piece — We Are!</option>
+                <option value="https://files.catbox.moe/arr56m.mp3">Bink's Sake</option>
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Boss Rush</option>
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3">Night Raid</option>
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Cyber Chase</option>
                 <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">Digital Dreams</option>
             </select>
-            
             <div class="music-controls">
-                <button type="button" class="music-btn" data-action="play">Pause</button>
+                <button type="button" class="music-btn" data-action="play">Play</button>
                 <button type="button" class="music-btn" data-action="mute">Mute</button>
                 <button type="button" class="music-btn" data-action="prev">⏮ Prev</button>
                 <button type="button" class="music-btn" data-action="next">Next ⏭</button>
             </div>
-            
-            <label class="music-control-label" for="volume-zero">Volume Control</label>
+            <label class="music-control-label" for="volume-zero">Volume</label>
             <input id="volume-zero" class="music-volume" type="range" min="0" max="1" step="0.01" value="0.5">
-            
             <div class="music-progress-container">
-                <input type="range" class="music-progress" min="0" max="100" value="0" step="0.1">
+                <input type="range" class="music-progress" min="0" max="100" value="0" step="0.1" aria-label="Seek">
             </div>
-            
-            <p class="music-status" aria-live="polite">Playing: We Are!</p>
-            
-            <div class="music-visualizer">
+            <p class="music-status" aria-live="polite">Click Play to start music</p>
+            <div class="music-visualizer" aria-hidden="true">
                 <div class="visualizer-bar"></div>
                 <div class="visualizer-bar"></div>
                 <div class="visualizer-bar"></div>
@@ -90,55 +73,49 @@
         <div class="bio-container">
             <div class="bio-profile">
                 <div class="bio-avatar">
-                    <img src="https://cdn.imgchest.com/files/f6112dd256df.jpg" alt="Zero Profile Picture">
+                    <img src="https://cdn.imgchest.com/files/f6112dd256df.jpg" alt="Zero">
                 </div>
                 <h1 class="bio-name">Zero</h1>
                 <p class="bio-description">Developer • Designer • Creating Digital Experiences</p>
             </div>
 
             <div class="bio-links">
-                <a href="https://github.com/zero" class="bio-link" style="animation-delay: 0.2s">
+                <a href="https://github.com/zero" class="bio-link" style="animation-delay: 0.1s" target="_blank" rel="noopener">
                     <span class="link-icon">💻</span>
                     <span class="link-text">GitHub</span>
-                    <span class="link-arrow">→</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                 </a>
-                <a href="https://linkedin.com/in/zero" class="bio-link" style="animation-delay: 0.3s">
+                <a href="https://linkedin.com/in/zero" class="bio-link" style="animation-delay: 0.2s" target="_blank" rel="noopener">
                     <span class="link-icon">💼</span>
                     <span class="link-text">LinkedIn</span>
-                    <span class="link-arrow">→</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                 </a>
-                <a href="https://dribbble.com/zero" class="bio-link" style="animation-delay: 0.4s">
+                <a href="https://dribbble.com/zero" class="bio-link" style="animation-delay: 0.3s" target="_blank" rel="noopener">
                     <span class="link-icon">🎨</span>
                     <span class="link-text">Dribbble</span>
-                    <span class="link-arrow">→</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                 </a>
-                <a href="https://twitter.com/zero" class="bio-link" style="animation-delay: 0.5s">
+                <a href="https://twitter.com/zero" class="bio-link" style="animation-delay: 0.4s" target="_blank" rel="noopener">
                     <span class="link-icon">🐦</span>
-                    <span class="link-text">Twitter</span>
-                    <span class="link-arrow">→</span>
+                    <span class="link-text">X (Twitter)</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                 </a>
-                <a href="mailto:hello@zero.com" class="bio-link" style="animation-delay: 0.6s">
+                <a href="mailto:hello@zero.com" class="bio-link" style="animation-delay: 0.5s">
                     <span class="link-icon">📧</span>
                     <span class="link-text">Contact</span>
-                    <span class="link-arrow">→</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                 </a>
             </div>
         </div>
     </div>
+
     <script src="bio-music.js"></script>
     <script>
-        // Theme toggle functionality
         const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        
         themeToggle.addEventListener('click', () => {
-            body.classList.toggle('onepiece-theme');
-            
-            if (body.classList.contains('onepiece-theme')) {
-                themeToggle.querySelector('.theme-icon').textContent = '🏴‍☠️';
-            } else {
-                themeToggle.querySelector('.theme-icon').textContent = '🎨';
-            }
+            document.body.classList.toggle('onepiece-theme');
+            themeToggle.querySelector('.theme-icon').textContent =
+                document.body.classList.contains('onepiece-theme') ? '🏴‍☠️' : '🎨';
         });
     </script>
 </body>
