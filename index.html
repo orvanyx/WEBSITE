@@ -3,189 +3,374 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orvanyx - Gamification | Transform Reality into Adventure</title>
-    
-    <!-- Favicon -->
+    <title>Orvanyx — Coming Soon</title>
     <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/6e8658079519.png">
     <link rel="apple-touch-icon" href="https://cdn.imgchest.com/files/6e8658079519.png">
-    
-    <!-- OpenGraph / Social Media Meta Tags -->
-    <meta name="description" content="Transform every aspect of life into an engaging quest system. Discover how gamification can revolutionize work, education, health, and daily routines.">
-    <meta property="og:title" content="Orvanyx - Gamification | Transform Reality into Adventure">
-    <meta property="og:description" content="Transform every aspect of life into an engaging quest system. Discover how gamification can revolutionize work, education, health, and daily routines.">
+    <meta name="description" content="Orvanyx — Gamification platform. Coming soon.">
+    <meta property="og:title" content="Orvanyx — Coming Soon">
     <meta property="og:image" content="https://cdn.imgchest.com/files/6e8658079519.png">
-    <meta property="og:url" content="https://orvanyx.com">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Orvanyx - Gamification">
-    <meta name="twitter:description" content="Transform every aspect of life into an engaging quest system.">
-    <meta name="twitter:image" content="https://cdn.imgchest.com/files/6e8658079519.png">
-    
-    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --accent: #00d4ff;
+            --accent2: #ff006e;
+            --bg: #0a0e17;
+            --bg2: #131920;
+            --text: #e0e6ed;
+            --border: rgba(0,212,255,0.2);
+            --font-d: 'Orbitron', sans-serif;
+            --font-b: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-b);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,212,255,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,212,255,0.06) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridScroll 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Radial glow bg */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0,212,255,0.15), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,0,110,0.12), transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Scan line */
+        .scan-line {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            animation: scan 5s linear infinite;
+            opacity: 0.25;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+
+        @keyframes gridScroll {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        /* Main content */
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 780px;
+            width: 100%;
+        }
+
+        /* Logo / badge */
+        .logo-ring {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2.5rem;
+            background: rgba(0,212,255,0.05);
+            box-shadow: 0 0 40px rgba(0,212,255,0.3), inset 0 0 30px rgba(0,212,255,0.05);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .logo-ring img {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 12px rgba(0,212,255,0.6));
+        }
+
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 0 30px rgba(0,212,255,0.3), inset 0 0 20px rgba(0,212,255,0.05); }
+            50%      { box-shadow: 0 0 60px rgba(0,212,255,0.6), inset 0 0 40px rgba(0,212,255,0.1); }
+        }
+
+        /* Site name */
+        .site-title {
+            font-family: var(--font-d);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: 0.3em;
+            text-shadow: 0 0 30px rgba(0,212,255,0.5);
+            animation: glow 2.5s ease-in-out infinite alternate;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(0,212,255,0.5); }
+            to   { text-shadow: 0 0 40px rgba(0,212,255,0.9), 0 0 80px rgba(0,212,255,0.3); }
+        }
+
+        .site-sub {
+            font-family: var(--font-d);
+            font-size: clamp(0.75rem, 2vw, 1rem);
+            letter-spacing: 0.3em;
+            color: rgba(224,230,237,0.5);
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        /* Construction badge */
+        .badge {
+            display: inline-block;
+            background: rgba(255,0,110,0.12);
+            border: 1px solid var(--accent2);
+            border-radius: 4px;
+            padding: 0.4rem 1.2rem;
+            font-family: var(--font-d);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--accent2);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            animation: badgePulse 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes badgePulse {
+            from { opacity: 0.7; }
+            to   { opacity: 1; box-shadow: 0 0 15px rgba(255,0,110,0.4); }
+        }
+
+        /* Main heading */
+        .main-heading {
+            font-family: var(--font-d);
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-weight: 900;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: 0.08em;
+        }
+
+        .main-heading span {
+            color: var(--accent);
+        }
+
+        .main-desc {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: rgba(224,230,237,0.65);
+            line-height: 1.7;
+            max-width: 520px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Progress bar */
+        .progress-wrap {
+            max-width: 420px;
+            margin: 0 auto 3rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-d);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: rgba(224,230,237,0.5);
+            margin-bottom: 0.6rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 67%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 3px;
+            position: relative;
+            animation: progressShimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes progressShimmer {
+            0%,100% { opacity: 1; }
+            50%      { opacity: 0.7; }
+        }
+
+        /* Navigation links */
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.8rem;
+            border-radius: 6px;
+            font-family: var(--font-d);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .nav-link:hover::before { transform: translateX(100%); }
+
+        .nav-link.primary {
+            background: linear-gradient(135deg, var(--accent), #0051ff);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(0,212,255,0.3);
+        }
+
+        .nav-link.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,212,255,0.5);
+        }
+
+        .nav-link.secondary {
+            background: rgba(255,0,110,0.1);
+            border: 1px solid rgba(255,0,110,0.4);
+            color: var(--text);
+        }
+
+        .nav-link.secondary:hover {
+            background: rgba(255,0,110,0.2);
+            border-color: var(--accent2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255,0,110,0.3);
+        }
+
+        .nav-link.tertiary {
+            background: rgba(0,212,255,0.05);
+            border: 1px solid var(--border);
+            color: rgba(224,230,237,0.8);
+        }
+
+        .nav-link.tertiary:hover {
+            background: rgba(0,212,255,0.1);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Divider */
+        .divider {
+            width: 100%;
+            max-width: 400px;
+            margin: 3rem auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        /* Footer note */
+        .footer-note {
+            font-family: var(--font-d);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: rgba(224,230,237,0.25);
+            text-transform: uppercase;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        @media (max-width: 480px) {
+            .nav-links { flex-direction: column; align-items: center; }
+            .nav-link { width: 100%; max-width: 280px; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Bio Page Navigation Button -->
-    <a href="bio.html" class="nav-button" aria-label="Go to Bio Pages">
-        <span class="nav-icon">👤</span>
-    </a>
-
-    <div class="grid-overlay"></div>
     <div class="scan-line"></div>
-    
-    <!-- Header -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <h1 class="site-title">ORVANYX</h1>
-                <p class="site-subtitle">// GAMIFICATION</p>
+
+    <div class="content">
+        <div class="logo-ring">
+            <img src="https://cdn.imgchest.com/files/6e8658079519.png" alt="Orvanyx">
+        </div>
+
+        <p class="site-title">ORVANYX</p>
+        <p class="site-sub">// Gamification Platform</p>
+
+        <div class="badge">⚙️ &nbsp;Under Construction</div>
+
+        <h1 class="main-heading">
+            The <span>Next Level</span><br>Is Loading…
+        </h1>
+        <p class="main-desc">
+            The main site is being built. Epic gamification content is on its way.
+            In the meantime, check out the active sections below.
+        </p>
+
+        <div class="progress-wrap">
+            <div class="progress-label">
+                <span>Build Progress</span>
+                <span>67%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
             </div>
         </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="glitch-wrapper">
-                    <h2 class="hero-title" data-text="GAMIFY YOUR REALITY">GAMIFY YOUR REALITY</h2>
-                </div>
-                <p class="hero-description">Transform every aspect of life into an engaging quest system where progress is rewarded and achievements unlock new possibilities</p>
-            </div>
+        <div class="nav-links">
+            <a href="ppl.html" class="nav-link primary">⚽ PPL Tournament</a>
+            <a href="bio.html" class="nav-link secondary">👤 Player Bios</a>
         </div>
-    </section>
 
-    <!-- Blog Section -->
-    <section class="blog-section">
-        <div class="container">
-            <div class="blog-grid">
-                
-                <!-- Blog Post 1 -->
-                <article class="blog-card" style="animation-delay: 0.1s">
-                    <div class="card-glow"></div>
-                    <div class="blog-image" style="background: linear-gradient(135deg, #00d4ff 0%, #0051ff 100%);">
-                        <div class="image-overlay">
-                            <span class="category-tag">CONCEPT</span>
-                        </div>
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">02.15.2026</span>
-                        <h3 class="blog-title">What is Gamification? The Ultimate Guide</h3>
-                        <p class="blog-excerpt">Gamification applies game mechanics to non-game contexts. Discover how points, levels, and achievements can transform mundane tasks into engaging experiences that drive motivation and productivity.</p>
-                        <a href="https://cdn.discordapp.com/attachments/1299520255500095538/1472634686672212018/pngwing.com.png?ex=6993496d&is=6991f7ed&hm=0386e053f0f9983b3bf2370bec2f810ac8f816b8305a36b6aecca15eb6af78c7&" class="read-more">
-                            <span>ACCESS</span>
-                            <span class="arrow">→</span>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Blog Post 2 -->
-                <article class="blog-card" style="animation-delay: 0.2s">
-                    <div class="card-glow"></div>
-                    <div class="blog-image" style="background: linear-gradient(135deg, #ff006e 0%, #8338ec 100%);">
-                        <div class="image-overlay">
-                            <span class="category-tag">BUSINESS</span>
-                        </div>
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">02.12.2026</span>
-                        <h3 class="blog-title">Revolutionizing Corporate Structure Through Game Design</h3>
-                        <p class="blog-excerpt">Break traditional hierarchies with skill trees, achievement systems, and transparent progression paths. Learn how companies boost engagement by 300% with gamified structures.</p>
-                        <a href="https://cdn.discordapp.com/attachments/1299520255500095538/1472634686672212018/pngwing.com.png?ex=6993496d&is=6991f7ed&hm=0386e053f0f9983b3bf2370bec2f810ac8f816b8305a36b6aecca15eb6af78c7&" class="read-more">
-                            <span>ACCESS</span>
-                            <span class="arrow">→</span>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Blog Post 3 -->
-                <article class="blog-card" style="animation-delay: 0.3s">
-                    <div class="card-glow"></div>
-                    <div class="blog-image" style="background: linear-gradient(135deg, #06ffa5 0%, #00b4d8 100%);">
-                        <div class="image-overlay">
-                            <span class="category-tag">LIFESTYLE</span>
-                        </div>
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">02.08.2026</span>
-                        <h3 class="blog-title">Daily Quest Log: Gamifying Your Morning Routine</h3>
-                        <p class="blog-excerpt">Transform brushing teeth into XP gains. Turn exercise into boss battles. Build your real-life character with daily quests, streak bonuses, and milestone rewards that make habits stick.</p>
-                        <a href="https://cdn.discordapp.com/attachments/1299520255500095538/1472634686672212018/pngwing.com.png?ex=6993496d&is=6991f7ed&hm=0386e053f0f9983b3bf2370bec2f810ac8f816b8305a36b6aecca15eb6af78c7&" class="read-more">
-                            <span>ACCESS</span>
-                            <span class="arrow">→</span>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Blog Post 4 -->
-                <article class="blog-card" style="animation-delay: 0.4s">
-                    <div class="card-glow"></div>
-                    <div class="blog-image" style="background: linear-gradient(135deg, #f72585 0%, #ff9e00 100%);">
-                        <div class="image-overlay">
-                            <span class="category-tag">PRODUCTIVITY</span>
-                        </div>
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">02.05.2026</span>
-                        <h3 class="blog-title">Level Up Your Work: The RPG Approach to Tasks</h3>
-                        <p class="blog-excerpt">Classify tasks by difficulty. Earn skill points for completion. Unlock new abilities through consistent performance. Watch productivity soar when work feels like progression.</p>
-                        <a href="https://cdn.discordapp.com/attachments/1299520255500095538/1472634686672212018/pngwing.com.png?ex=6993496d&is=6991f7ed&hm=0386e053f0f9983b3bf2370bec2f810ac8f816b8305a36b6aecca15eb6af78c7&" class="read-more">
-                            <span>ACCESS</span>
-                            <span class="arrow">→</span>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Blog Post 5 -->
-                <article class="blog-card" style="animation-delay: 0.5s">
-                    <div class="card-glow"></div>
-                    <div class="blog-image" style="background: linear-gradient(135deg, #7209b7 0%, #f72585 100%);">
-                        <div class="image-overlay">
-                            <span class="category-tag">EDUCATION</span>
-                        </div>
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">02.01.2026</span>
-                        <h3 class="blog-title">Learning as Adventure: Gamified Education Systems</h3>
-                        <p class="blog-excerpt">Students advance through knowledge zones. Master subjects to unlock new challenges. Real-time leaderboards and cooperative missions transform classrooms into epic learning journeys.</p>
-                        <a href="https://cdn.discordapp.com/attachments/1299520255500095538/1472634686672212018/pngwing.com.png?ex=6993496d&is=6991f7ed&hm=0386e053f0f9983b3bf2370bec2f810ac8f816b8305a36b6aecca15eb6af78c7&" class="read-more">
-                            <span>ACCESS</span>
-                            <span class="arrow">→</span>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Blog Post 6 -->
-                <article class="blog-card" style="animation-delay: 0.6s">
-                    <div class="card-glow"></div>
-                    <div class="blog-image" style="background: linear-gradient(135deg, #ff5400 0%, #ffbd00 100%);">
-                        <div class="image-overlay">
-                            <span class="category-tag">WELLNESS</span>
-                        </div>
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">01.28.2026</span>
-                        <h3 class="blog-title">Health Points IRL: Gamifying Personal Wellness</h3>
-                        <p class="blog-excerpt">Track fitness stats as character attributes. Complete wellness challenges for power-ups. Build guild teams for accountability. Your body is your avatar—time to level it up.</p>
-                        <a href="https://cdn.discordapp.com/attachments/1299520255500095538/1472634686672212018/pngwing.com.png?ex=6993496d&is=6991f7ed&hm=0386e053f0f9983b3bf2370bec2f810ac8f816b8305a36b6aecca15eb6af78c7&" class="read-more">
-                            <span>ACCESS</span>
-                            <span class="arrow">→</span>
-                        </a>
-                    </div>
-                </article>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="container">
-            <p>© 2026 ORVANYX // Orvan's Freedom Vision</p>
-        </div>
-    </footer>
-
+        <div class="divider"></div>
+        <p class="footer-note">© 2026 Orvanyx &nbsp;// &nbsp;Orvan's Freedom Vision</p>
+    </div>
 </body>
 </html>
