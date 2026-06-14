@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirate Premier League — PPL | Orvanyx</title>
+    <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/6e8658079519.png">
+    <link rel="apple-touch-icon" href="https://cdn.imgchest.com/files/6e8658079519.png">
+    <meta name="description" content="Pirate Premier League — DLS Mobile Football Community. Player stats, trophies, and tournaments.">
+    <meta property="og:title" content="Pirate Premier League — PPL">
+    <meta property="og:image" content="https://cdn.imgchest.com/files/6e8658079519.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ppl-styles.css">
+</head>
+<body>
+
+    <!-- Animated background -->
+    <div class="ppl-bg-layer"></div>
+    <div class="ppl-particles" id="particles"></div>
+
+    <!-- Nav -->
+    <a href="index.html" class="ppl-nav-btn" aria-label="Back to home">🏠</a>
+
+    <!-- ── HEADER ───────────────────────────────────────────── -->
+    <header class="ppl-header">
+        <div class="ppl-crest">🏴‍☠️</div>
+        <div class="ppl-league-name">PIRATE PREMIER LEAGUE</div>
+        <p class="ppl-league-sub">// DLS Mobile Football Community · Discord League</p>
+        <div class="ppl-badge-row">
+            <span class="ppl-badge gold">⚽ Dream League Soccer</span>
+            <span class="ppl-badge red">🏴‍☠️ Pirate Edition</span>
+            <span class="ppl-badge green">🎮 Active Season</span>
+        </div>
+    </header>
+
+    <div class="ppl-divider"></div>
+
+    <!-- ── MAIN ─────────────────────────────────────────────── -->
+    <main class="ppl-main">
+
+        <!-- Search -->
+        <div class="search-wrap">
+            <span class="search-icon">🔍</span>
+            <input
+                type="text"
+                id="playerSearch"
+                class="ppl-search"
+                placeholder="Search player by name..."
+                autocomplete="off"
+                aria-label="Search players"
+            >
+        </div>
+
+        <!-- Player Cards Grid -->
+        <section aria-label="Players">
+            <p class="section-eyebrow">⚽ Active Roster</p>
+            <h2 class="section-title">Squad Members</h2>
+
+            <div class="player-grid" id="playerGrid">
+
+                <!-- ══════════════════════════════════════════════════════
+                     PLAYER CARD — MESSI
+                     To add new players: copy one full block below & edit.
+                     ══════════════════════════════════════════════════════ -->
+                <a href="ppl-messi.html" class="player-card" data-name="messi">
+                    <div class="player-card-header">
+                        <div class="player-avatar">⭐</div>
+                        <div class="player-card-info">
+                            <h3>MESSI</h3>
+                            <p class="player-handle">🏴‍☠️ Pirate Premier League</p>
+                        </div>
+                    </div>
+                    <div class="player-card-stats">
+                        <div class="card-stat">
+                            <div class="card-stat-num">32</div>
+                            <div class="card-stat-label">Goals</div>
+                        </div>
+                        <div class="card-stat">
+                            <div class="card-stat-num">18</div>
+                            <div class="card-stat-label">Assists</div>
+                        </div>
+                        <div class="card-stat">
+                            <div class="card-stat-num">5</div>
+                            <div class="card-stat-label">Trophies</div>
+                        </div>
+                    </div>
+                    <div class="player-card-trophies">
+                        <span class="trophy-mini" title="Main League Champion">🏆</span>
+                        <span class="trophy-mini" title="2nd League Champion">🥈</span>
+                        <span class="trophy-mini" title="3rd League Champion">🥉</span>
+                        <span class="trophy-mini" title="Champions League">🌟</span>
+                        <span class="trophy-mini" title="Golden Boot">👟</span>
+                        <span class="trophy-mini" title="Playmaker Award">🎯</span>
+                    </div>
+                </a>
+
+                <!-- ══════════════════════════════════════════════════════
+                     PLAYER CARD — NEYMAR
+                     ══════════════════════════════════════════════════════ -->
+                <a href="ppl-neymar.html" class="player-card" data-name="neymar">
+                    <div class="player-card-header">
+                        <div class="player-avatar">🌟</div>
+                        <div class="player-card-info">
+                            <h3>NEYMAR</h3>
+                            <p class="player-handle">🏴‍☠️ Pirate Premier League</p>
+                        </div>
+                    </div>
+                    <div class="player-card-stats">
+                        <div class="card-stat">
+                            <div class="card-stat-num">27</div>
+                            <div class="card-stat-label">Goals</div>
+                        </div>
+                        <div class="card-stat">
+                            <div class="card-stat-num">22</div>
+                            <div class="card-stat-label">Assists</div>
+                        </div>
+                        <div class="card-stat">
+                            <div class="card-stat-num">5</div>
+                            <div class="card-stat-label">Trophies</div>
+                        </div>
+                    </div>
+                    <div class="player-card-trophies">
+                        <span class="trophy-mini" title="Main League Champion">🏆</span>
+                        <span class="trophy-mini" title="2nd League Champion">🥈</span>
+                        <span class="trophy-mini" title="3rd League Champion">🥉</span>
+                        <span class="trophy-mini" title="Champions League">🌟</span>
+                        <span class="trophy-mini" title="Golden Boot">👟</span>
+                        <span class="trophy-mini" title="Playmaker Award">🎯</span>
+                    </div>
+                </a>
+
+                <!--
+                ══════════════════════════════════════════════════════════════
+                ADD NEW PLAYER CARDS HERE — copy the block above, change:
+                  · href="ppl-PLAYERNAME.html"
+                  · data-name="playername"      ← must match search
+                  · The avatar emoji or add <img> inside .player-avatar
+                  · <h3>NAME</h3>
+                  · The three .card-stat-num values (goals / assists / trophies)
+                  · Remove or add .trophy-mini spans as needed
+                See README-PPL.md for full step-by-step guide.
+                ══════════════════════════════════════════════════════════════
+                -->
+
+                <div class="no-results" id="noResults" style="display:none;">
+                    ⚓ No pirates found. Try a different name.
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="ppl-divider"></div>
+
+        <!-- Discord Section -->
+        <section class="discord-section" aria-label="Discord Community">
+            <p class="section-eyebrow">🌊 Community Hub</p>
+            <h2 class="section-title">Join the Crew on Discord</h2>
+
+            <div class="discord-layout">
+                <!-- Premade Discord Widget -->
+                <div class="discord-widget-wrap">
+                    <iframe
+                        src="https://canary.discord.com/widget?id=1513863323446284378&theme=dark"
+                        width="350"
+                        height="500"
+                        allowtransparency="true"
+                        frameborder="0"
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                        title="Pirate Premier League Discord"
+                    ></iframe>
+                </div>
+
+                <!-- Info cards -->
+                <div class="discord-info">
+                    <div class="discord-info-card">
+                        <h4>🏴‍☠️ About the League</h4>
+                        <p>
+                            Pirate Premier League (PPL) is a DLS (Dream League Soccer) mobile football community hosted on Discord.
+                            Tournaments are conducted seasonally. Player stats are tracked and updated manually by the league admin.
+                            Join the server to participate in the next season!
+                        </p>
+                    </div>
+
+                    <div class="discord-info-card">
+                        <h4>⚙️ Server Info</h4>
+                        <p>
+                            Server ID: <code>1513863323446284378</code>
+                        </p>
+                        <p style="margin-top:0.5rem;">
+                            Widget JSON API:<br>
+                            <code>https://canary.discord.com/api/guilds/1513863323446284378/widget.json</code>
+                        </p>
+                    </div>
+
+                    <div class="discord-info-card">
+                        <h4>📋 How Tournaments Work</h4>
+                        <p>• Seasons conducted in DLS mobile game<br>
+                        • Players registered by league admin<br>
+                        • Stats (goals, assists, conceded) tracked manually<br>
+                        • Trophies awarded at end of each season<br>
+                        • All stats updated on this website after each match</p>
+                    </div>
+
+                    <a
+                        href="https://discord.gg/1513863323446284378"
+                        target="_blank"
+                        rel="noopener"
+                        class="join-btn"
+                    >
+                        <svg width="18" height="14" viewBox="0 0 18 14" fill="white"><path d="M15.245 1.187A14.88 14.88 0 0 0 11.576 0c-.17.302-.369.71-.506 1.033a13.703 13.703 0 0 0-4.14 0A11.12 11.12 0 0 0 6.421 0 14.916 14.916 0 0 0 2.748 1.19C.394 4.74-.242 8.2.077 11.608a15.04 15.04 0 0 0 4.6 2.338c.372-.508.703-1.047.99-1.61a9.77 9.77 0 0 1-1.558-.754c.13-.095.258-.195.382-.299 3.003 1.4 6.257 1.4 9.224 0 .125.104.253.204.382.3a9.773 9.773 0 0 1-1.56.753c.287.563.617 1.103.99 1.61a15.03 15.03 0 0 0 4.602-2.338c.377-3.986-.637-7.414-2.884-10.42ZM6.012 9.508c-.895 0-1.63-.83-1.63-1.845 0-1.016.72-1.847 1.63-1.847.91 0 1.645.831 1.63 1.847.002 1.015-.72 1.845-1.63 1.845Zm6.021 0c-.895 0-1.63-.83-1.63-1.845 0-1.016.72-1.847 1.63-1.847.91 0 1.644.831 1.629 1.847.002 1.015-.72 1.845-1.629 1.845Z"/></svg>
+                        Join Discord Server
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // ── Floating Particles ─────────────────────────────────
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 18; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.cssText = `
+                left: ${Math.random() * 100}%;
+                --dur: ${6 + Math.random() * 10}s;
+                --delay: ${Math.random() * 8}s;
+                width: ${1.5 + Math.random() * 3}px;
+                height: ${1.5 + Math.random() * 3}px;
+                opacity: 0;
+            `;
+            container.appendChild(p);
+        }
+
+        // ── Player Search ──────────────────────────────────────
+        const searchInput = document.getElementById('playerSearch');
+        const cards = document.querySelectorAll('.player-card');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+            let found = 0;
+            cards.forEach(card => {
+                const name = card.dataset.name || '';
+                const match = name.includes(query);
+                card.style.display = match ? '' : 'none';
+                if (match) found++;
+            });
+            noResults.style.display = found === 0 ? 'block' : 'none';
+        });
+    </script>
+
+</body>
+</html>
