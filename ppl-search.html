@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Search — Pirate Premier League</title>
+    <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/6837edfc2179.png">
+    <meta name="description" content="Search PPL player profiles — stats, trophies, and season records.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ppl-styles.css">
+    <style>
+        /* ── Compact search page layout ── */
+        .search-page {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem 5rem;
+        }
+
+        .search-page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-page-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            color: var(--ppl-gold);
+            letter-spacing: 0.12em;
+            text-shadow: 0 0 18px rgba(240,192,64,0.4);
+            margin-bottom: 0.4rem;
+        }
+
+        .search-page-sub {
+            font-size: 0.82rem;
+            color: var(--ppl-muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* Compact cards */
+        .player-card-compact {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--ppl-bg2);
+            border: 1px solid var(--ppl-border);
+            border-radius: 10px;
+            padding: 0.85rem 1.1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .player-card-compact::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--ppl-red), var(--ppl-gold));
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .player-card-compact:hover {
+            border-color: rgba(240,192,64,0.45);
+            background: var(--ppl-bg3);
+            -webkit-transform: translateX(4px);
+            transform: translateX(4px);
+            box-shadow: 0 4px 20px rgba(240,192,64,0.1);
+        }
+
+        .player-card-compact:hover::before { opacity: 1; }
+
+        .compact-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 2px solid rgba(240,192,64,0.35);
+            background: linear-gradient(135deg, var(--ppl-bg3), #1a2d45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .player-card-compact:hover .compact-avatar { border-color: var(--ppl-gold); }
+
+        .compact-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+        .compact-info { flex: 1; min-width: 0; }
+
+        .compact-name {
+            font-family: var(--font-title);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ppl-gold);
+            letter-spacing: 0.07em;
+            line-height: 1.2;
+        }
+
+        .compact-role {
+            font-size: 0.7rem;
+            color: var(--ppl-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .compact-stats {
+            display: flex;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+        .compact-stat { text-align: center; }
+
+        .compact-stat-num {
+            font-family: var(--font-title);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ppl-gold);
+            display: block;
+        }
+
+        .compact-stat-lbl {
+            font-size: 0.58rem;
+            color: var(--ppl-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .compact-trophies {
+            display: flex;
+            gap: 0.2rem;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            max-width: 90px;
+        }
+
+        .compact-trophies .trophy-mini { font-size: 0.9rem; }
+
+        .compact-arrow {
+            color: var(--ppl-muted);
+            font-size: 0.9rem;
+            transition: -webkit-transform 0.25s, transform 0.25s;
+            flex-shrink: 0;
+        }
+
+        .player-card-compact:hover .compact-arrow {
+            color: var(--ppl-gold);
+            -webkit-transform: translateX(3px);
+            transform: translateX(3px);
+        }
+
+        /* Results grid for compact cards */
+        .compact-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Search results count */
+        .results-count {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ppl-muted);
+            margin-bottom: 1rem;
+            padding-left: 0.2rem;
+        }
+
+        @media (max-width: 520px) {
+            .compact-stats  { gap: 0.6rem; }
+            .compact-trophies { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ppl-bg-layer"></div>
+    <div class="ppl-particles" id="particles"></div>
+
+    <a href="ppl.html" class="ppl-nav-btn" aria-label="Back to PPL">⚽</a>
+
+    <div class="search-page">
+
+        <div class="search-page-header">
+            <h1 class="search-page-title">🔍 Player Search</h1>
+            <p class="search-page-sub">Pirate Premier League · DLS Community</p>
+        </div>
+
+        <!-- Search input -->
+        <div class="search-wrap">
+            <span class="search-icon">🔍</span>
+            <input
+                type="text"
+                id="playerSearch"
+                class="ppl-search"
+                placeholder="Type a player name…"
+                autocomplete="off"
+                aria-label="Search players"
+                autofocus
+            >
+        </div>
+
+        <p class="results-count" id="resultsCount">Showing all players</p>
+
+        <!-- Compact player cards list -->
+        <div class="compact-grid" id="playerGrid">
+
+            <!-- ═══════════════════════════════════════════════════
+                 PLAYER: MESSI
+                 To add players: copy one block, edit name/stats/href
+                 ═══════════════════════════════════════════════════ -->
+            <a href="ppl-messi.html" class="player-card-compact" data-name="messi">
+                <div class="compact-avatar">⭐</div>
+                <div class="compact-info">
+                    <div class="compact-name">MESSI</div>
+                    <div class="compact-role">Forward · PPL Season 1</div>
+                </div>
+                <div class="compact-stats">
+                    <div class="compact-stat">
+                        <span class="compact-stat-num">32</span>
+                        <span class="compact-stat-lbl">Goals</span>
+                    </div>
+                    <div class="compact-stat">
+                        <span class="compact-stat-num">18</span>
+                        <span class="compact-stat-lbl">Assists</span>
+                    </div>
+                </div>
+                <div class="compact-trophies">
+                    <span class="trophy-mini" title="Main League">🏆</span>
+                    <span class="trophy-mini" title="2nd League">🥈</span>
+                    <span class="trophy-mini" title="3rd League">🥉</span>
+                    <span class="trophy-mini" title="Champions League">🌟</span>
+                    <span class="trophy-mini" title="Golden Boot">👟</span>
+                    <span class="trophy-mini" title="Playmaker">🎯</span>
+                </div>
+                <span class="compact-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <!-- ═══════════════════════════════════════════════════
+                 PLAYER: NEYMAR
+                 ═══════════════════════════════════════════════════ -->
+            <a href="ppl-neymar.html" class="player-card-compact" data-name="neymar">
+                <div class="compact-avatar">🌟</div>
+                <div class="compact-info">
+                    <div class="compact-name">NEYMAR</div>
+                    <div class="compact-role">Winger · PPL Season 1</div>
+                </div>
+                <div class="compact-stats">
+                    <div class="compact-stat">
+                        <span class="compact-stat-num">27</span>
+                        <span class="compact-stat-lbl">Goals</span>
+                    </div>
+                    <div class="compact-stat">
+                        <span class="compact-stat-num">22</span>
+                        <span class="compact-stat-lbl">Assists</span>
+                    </div>
+                </div>
+                <div class="compact-trophies">
+                    <span class="trophy-mini" title="Main League">🏆</span>
+                    <span class="trophy-mini" title="2nd League">🥈</span>
+                    <span class="trophy-mini" title="3rd League">🥉</span>
+                    <span class="trophy-mini" title="Champions League">🌟</span>
+                    <span class="trophy-mini" title="Golden Boot">👟</span>
+                    <span class="trophy-mini" title="Playmaker">🎯</span>
+                </div>
+                <span class="compact-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <!--
+            ═══════════════════════════════════════════════════════════
+            ADD NEW PLAYERS HERE — copy a block above and change:
+              · href="ppl-PLAYERNAME.html"
+              · data-name="playername"  ← lowercase, used for search
+              · The avatar emoji (or add <img> inside .compact-avatar)
+              · .compact-name text
+              · .compact-role (position · season)
+              · Goal / Assist numbers
+              · Trophy emojis (remove any not earned)
+            See README-PPL.md for full guide.
+            ═══════════════════════════════════════════════════════════
+            -->
+
+        </div>
+
+        <div class="no-results" id="noResults" style="display:none;">
+            ⚓ No pirates found matching "<span id="noResultsQuery"></span>"
+        </div>
+
+        <a href="ppl.html" class="ppl-back-btn">← Back to PPL Home</a>
+
+    </div>
+
+    <script>
+        // ── Particles (light) ─────────────────────────────────
+        const container = document.getElementById('particles');
+        const isMobile = window.innerWidth < 640;
+        const count = isMobile ? 4 : 10;
+        for (let i = 0; i < count; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.cssText = `left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--delay:${Math.random()*8}s;width:${1.5+Math.random()*2}px;height:${1.5+Math.random()*2}px;`;
+            container.appendChild(p);
+        }
+
+        // ── Search filter ─────────────────────────────────────
+        const searchInput  = document.getElementById('playerSearch');
+        const cards        = document.querySelectorAll('.player-card-compact');
+        const noResults    = document.getElementById('noResults');
+        const noResultsQ   = document.getElementById('noResultsQuery');
+        const countEl      = document.getElementById('resultsCount');
+        const total        = cards.length;
+
+        // Pre-fill from URL ?q= param
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('q')) {
+            searchInput.value = params.get('q');
+            filterCards(params.get('q'));
+        }
+
+        searchInput.addEventListener('input', () => {
+            filterCards(searchInput.value);
+            // Update URL without reload so it's shareable
+            const url = new URL(window.location);
+            if (searchInput.value.trim()) {
+                url.searchParams.set('q', searchInput.value.trim());
+            } else {
+                url.searchParams.delete('q');
+            }
+            history.replaceState(null, '', url);
+        });
+
+        function filterCards(query) {
+            const q = query.toLowerCase().trim();
+            let found = 0;
+            cards.forEach(card => {
+                const name  = card.dataset.name || '';
+                const match = !q || name.includes(q);
+                card.style.display = match ? '' : 'none';
+                if (match) found++;
+            });
+            noResults.style.display  = found === 0 ? 'block' : 'none';
+            noResultsQ.textContent   = query;
+            countEl.textContent      = q
+                ? `${found} of ${total} player${total !== 1 ? 's' : ''} found`
+                : `Showing all ${total} player${total !== 1 ? 's' : ''}`;
+        }
+    </script>
+</body>
+</html>
