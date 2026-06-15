@@ -45,12 +45,11 @@
             <span class="ppl-badge green">🎮 Active Season</span>
         </div>
 
-        <!-- UTC Time Widget -->
-        <script src="https://currenttimeutc.com/js/widget.js"></script>
-        <div id="ctuw">
-            <div class="mt"><a href="https://currenttimeutc.com/">Current UTC Time</a></div>
-            <div id="ud">Loading time…</div>
-            <div id="ta"></div>
+        <!-- UTC Time Widget (self-contained, no external script) -->
+        <div class="ppl-utc-widget" id="utcWidget">
+            <span class="ppl-utc-label">Current UTC Time</span>
+            <span class="ppl-utc-clock" id="utcClock">--:--:--</span>
+            <span class="ppl-utc-date" id="utcDate">Loading date…</span>
         </div>
 
         <!-- Action buttons -->
@@ -160,6 +159,24 @@
             p.style.cssText = `left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--delay:${Math.random()*8}s;width:${1.5+Math.random()*2.5}px;height:${1.5+Math.random()*2.5}px;`;
             container.appendChild(p);
         }
+
+        // Self-contained UTC clock — no external script/widget needed
+        const utcClockEl = document.getElementById('utcClock');
+        const utcDateEl = document.getElementById('utcDate');
+        const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        function updateUtcClock() {
+            const now = new Date();
+            const h = String(now.getUTCHours()).padStart(2, '0');
+            const m = String(now.getUTCMinutes()).padStart(2, '0');
+            const s = String(now.getUTCSeconds()).padStart(2, '0');
+            utcClockEl.textContent = `${h}:${m}:${s} UTC`;
+            utcDateEl.textContent = `${weekdays[now.getUTCDay()]}, ${months[now.getUTCMonth()]} ${now.getUTCDate()}, ${now.getUTCFullYear()}`;
+        }
+
+        updateUtcClock();
+        setInterval(updateUtcClock, 1000);
     </script>
 
 </body>
