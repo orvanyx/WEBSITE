@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ & Rules — Pirate Premier League</title>
+    <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/6837edfc2179.png">
+    <meta name="description" content="Pirate Premier League FAQ — Tournament rules, timings, and how to join.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ppl-styles.css">
+</head>
+<body>
+
+    <div class="ppl-bg-layer"></div>
+    <div class="ppl-particles" id="particles"></div>
+
+    <a href="ppl.html" class="ppl-nav-btn" aria-label="Back to PPL">⚽</a>
+
+    <div class="faq-page">
+
+        <!-- Hero -->
+        <div class="faq-hero">
+            <h1 class="faq-hero-title">❓ FAQ &amp; Rules</h1>
+            <p class="faq-hero-sub">Pirate Premier League · Everything you need to know</p>
+        </div>
+
+        <!-- Accordion FAQ list -->
+        <div class="faq-list" id="faqList">
+
+            <!-- ══════════════════════════════════════════════════
+                 FAQ 1 — Tournament Matches
+                 ══════════════════════════════════════════════════ -->
+            <div class="faq-item" data-index="0">
+                <button class="faq-trigger" aria-expanded="false" aria-controls="faq-body-0">
+                    <span class="faq-trigger-left">
+                        <span class="faq-trigger-icon">⚽</span>
+                        <span class="faq-trigger-text">Tournament Matches</span>
+                    </span>
+                    <span class="faq-chevron" aria-hidden="true">▼</span>
+                </button>
+                <div class="faq-body" id="faq-body-0" role="region">
+                    <div class="faq-body-inner">
+                        <div class="faq-cards">
+
+                            <div class="faq-card">
+                                <div class="faq-card-title">🏆 Match Format</div>
+                                <div class="faq-card-body">
+                                    All PPL matches are played on <strong>Dream League Soccer (DLS)</strong> mobile. Each match is a
+                                    single-leg game. Results are self-reported by both players and confirmed by the admin.
+                                    Screenshots of the final score must be posted in the Discord results channel.
+                                </div>
+                            </div>
+
+                            <div class="faq-card red-left">
+                                <div class="faq-card-title">📋 League Structure</div>
+                                <div class="faq-card-body">
+                                    The PPL runs <strong>three leagues</strong> per season:<br>
+                                    • <strong>Main League</strong> — top-tier competition<br>
+                                    • <strong>2nd League</strong> — mid-tier competition<br>
+                                    • <strong>3rd League</strong> — entry-level competition<br><br>
+                                    A <strong>Champions League</strong> knockout tournament is held at the end of each season
+                                    for qualified players across all leagues.
+                                </div>
+                            </div>
+
+                            <div class="faq-card green-left">
+                                <div class="faq-card-title">📊 How Stats Are Recorded</div>
+                                <div class="faq-card-body">
+                                    After each match, the admin manually records:<br>
+                                    <strong>Goals Scored · Assists · Goals Conceded</strong><br><br>
+                                    Stats are updated on this website within 24 hours of a match being confirmed.
+                                    If you notice an error, contact the admin on Discord.
+                                </div>
+                            </div>
+
+                            <div class="faq-card blue-left">
+                                <div class="faq-card-title">🚫 Disputes &amp; Fair Play</div>
+                                <div class="faq-card-body">
+                                    Any disputes must be raised within <strong>48 hours</strong> of the match result being posted.
+                                    Evidence (screenshots/video) is required. The admin's decision is final.
+                                    Unsporting behaviour may result in a points deduction or ban from the league.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════════
+                 FAQ 2 — Tournament Timings
+                 ══════════════════════════════════════════════════ -->
+            <div class="faq-item" data-index="1">
+                <button class="faq-trigger" aria-expanded="false" aria-controls="faq-body-1">
+                    <span class="faq-trigger-left">
+                        <span class="faq-trigger-icon">🕐</span>
+                        <span class="faq-trigger-text">Tournament Timings</span>
+                    </span>
+                    <span class="faq-chevron" aria-hidden="true">▼</span>
+                </button>
+                <div class="faq-body" id="faq-body-1" role="region">
+                    <div class="faq-body-inner">
+                        <div class="faq-cards">
+
+                            <!-- Card 1 — Universal time standard -->
+                            <div class="faq-card">
+                                <div class="faq-card-title">🌐 Universal Time Standard</div>
+                                <div class="faq-card-body">
+                                    The <strong>official PPL time zone is UTC+00 (Coordinated Universal Time)</strong>.
+                                    All match deadlines, season start/end dates, and announcements are posted in UTC.
+                                    Convert to your local time when scheduling matches with opponents.
+                                    A live UTC clock is shown on the <a href="ppl.html">PPL home page</a>.
+                                </div>
+                            </div>
+
+                            <div class="faq-card red-left">
+                                <div class="faq-card-title">📅 Season Schedule</div>
+                                <div class="faq-card-body">
+                                    • <strong>Season Start</strong> — announced on Discord<br>
+                                    • <strong>Match Deadline</strong> — each round has a 7-day window (UTC)<br>
+                                    • <strong>Playoffs / CL</strong> — held in the final 2 weeks of each season<br>
+                                    • <strong>Trophy Ceremony</strong> — Discord announcement after all finals<br><br>
+                                    Always check the Discord <code>#announcements</code> channel for exact dates.
+                                </div>
+                            </div>
+
+                            <div class="faq-card green-left">
+                                <div class="faq-card-title">⏰ Scheduling a Match</div>
+                                <div class="faq-card-body">
+                                    Contact your opponent via Discord DM or the match thread. Agree on a date and time,
+                                    then post it in the match channel in <strong>UTC format</strong>.<br><br>
+                                    Example: <strong>"We'll play Saturday 20:00 UTC"</strong><br><br>
+                                    If both players cannot agree on a time before the round deadline,
+                                    the admin may award a walkover or declare a 0-0 draw.
+                                </div>
+                            </div>
+
+                            <div class="faq-card blue-left">
+                                <div class="faq-card-title">🔄 Time Zone Converter</div>
+                                <div class="faq-card-body">
+                                    Common UTC offsets to help you:<br>
+                                    • <strong>UTC+00</strong> — UK (GMT), West Africa<br>
+                                    • <strong>UTC+03</strong> — Saudi Arabia, East Africa<br>
+                                    • <strong>UTC+04</strong> — UAE, Oman<br>
+                                    • <strong>UTC+05:30</strong> — India (IST)<br>
+                                    • <strong>UTC-05</strong> — USA Eastern (EST)<br><br>
+                                    Use <a href="https://www.timeanddate.com/worldclock/converter.html" target="_blank" rel="noopener">timeanddate.com</a> for a full converter.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════════
+                 FAQ 3 — How to Join / Register
+                 ══════════════════════════════════════════════════ -->
+            <div class="faq-item" data-index="2">
+                <button class="faq-trigger" aria-expanded="false" aria-controls="faq-body-2">
+                    <span class="faq-trigger-left">
+                        <span class="faq-trigger-icon">🏴‍☠️</span>
+                        <span class="faq-trigger-text">How to Join the League</span>
+                    </span>
+                    <span class="faq-chevron" aria-hidden="true">▼</span>
+                </button>
+                <div class="faq-body" id="faq-body-2" role="region">
+                    <div class="faq-body-inner">
+                        <div class="faq-cards">
+
+                            <div class="faq-card">
+                                <div class="faq-card-title">📝 Registration Steps</div>
+                                <div class="faq-card-body">
+                                    <strong>1.</strong> Join the PPL Discord server using the button on the home page.<br>
+                                    <strong>2.</strong> Read the <code>#rules</code> channel carefully.<br>
+                                    <strong>3.</strong> Post your DLS username in <code>#registration</code>.<br>
+                                    <strong>4.</strong> Wait for the admin to confirm your registration.<br>
+                                    <strong>5.</strong> Your player profile will be created on this site after your first match.<br>
+                                </div>
+                            </div>
+
+                            <div class="faq-card green-left">
+                                <div class="faq-card-title">✅ Requirements</div>
+                                <div class="faq-card-body">
+                                    • Must have <strong>Dream League Soccer</strong> installed on a mobile device<br>
+                                    • Must be an active member of the PPL Discord<br>
+                                    • Must be available to play matches within round deadlines<br>
+                                    • Must follow fair play rules (no hacks/mods)
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════════
+                 FAQ 4 — Awards
+                 ══════════════════════════════════════════════════ -->
+            <div class="faq-item" data-index="3">
+                <button class="faq-trigger" aria-expanded="false" aria-controls="faq-body-3">
+                    <span class="faq-trigger-left">
+                        <span class="faq-trigger-icon">🏆</span>
+                        <span class="faq-trigger-text">Trophies &amp; Awards</span>
+                    </span>
+                    <span class="faq-chevron" aria-hidden="true">▼</span>
+                </button>
+                <div class="faq-body" id="faq-body-3" role="region">
+                    <div class="faq-body-inner">
+                        <div class="faq-cards">
+
+                            <div class="faq-card">
+                                <div class="faq-card-title">🏆 League Trophies</div>
+                                <div class="faq-card-body">
+                                    • <strong>🏆 Main League Champion</strong> — highest points in the Main League<br>
+                                    • <strong>🥈 2nd League Champion</strong> — highest points in 2nd League<br>
+                                    • <strong>🥉 3rd League Champion</strong> — highest points in 3rd League<br>
+                                    • <strong>🌟 Champions League Winner</strong> — knockout tournament champion
+                                </div>
+                            </div>
+
+                            <div class="faq-card green-left">
+                                <div class="faq-card-title">👟 Individual Awards</div>
+                                <div class="faq-card-body">
+                                    • <strong>👟 Golden Boot</strong> — most goals scored across all leagues in the season<br>
+                                    • <strong>🎯 Playmaker Award</strong> — most assists across all leagues in the season<br><br>
+                                    Awards are announced at the end of each season in Discord.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════════
+                 FAQ 5 — Tournament Bracket
+                 ══════════════════════════════════════════════════ -->
+            <div class="faq-item" data-index="4">
+                <button class="faq-trigger" aria-expanded="false" aria-controls="faq-body-4">
+                    <span class="faq-trigger-left">
+                        <span class="faq-trigger-icon">📊</span>
+                        <span class="faq-trigger-text">Tournament Bracket &amp; Standings</span>
+                    </span>
+                    <span class="faq-chevron" aria-hidden="true">▼</span>
+                </button>
+                <div class="faq-body" id="faq-body-4" role="region">
+                    <div class="faq-body-inner">
+                        <div class="faq-cards">
+
+                            <div class="faq-card">
+                                <div class="faq-card-title">🌐 Official Bracket Page</div>
+                                <div class="faq-card-body">
+                                    The full tournament bracket, standings, and knockout draws are hosted on Toornament.<br><br>
+                                    <a
+                                        href="https://play.toornament.com/tournaments/2498566758623475711/"
+                                        target="_blank"
+                                        rel="noopener"
+                                    >👉 View the PPL Tournament on Toornament →</a>
+                                </div>
+                            </div>
+
+                            <div class="faq-card blue-left">
+                                <div class="faq-card-title">📋 Points System</div>
+                                <div class="faq-card-body">
+                                    • <strong>Win</strong> → 3 points<br>
+                                    • <strong>Draw</strong> → 1 point<br>
+                                    • <strong>Loss</strong> → 0 points<br><br>
+                                    Tiebreakers: Goal Difference → Goals Scored → Head-to-Head
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+            ═══════════════════════════════════════════════════════
+            ADD NEW FAQ ITEMS HERE — copy a .faq-item block above.
+            Change data-index to the next number.
+            Change aria-controls / id to match (faq-body-N).
+            See README-PPL.md for instructions.
+            ═══════════════════════════════════════════════════════
+            -->
+
+        </div><!-- /faq-list -->
+
+        <br>
+        <a href="ppl.html" class="ppl-back-btn">← Back to PPL Home</a>
+
+    </div><!-- /faq-page -->
+
+    <script>
+        // ── Particles ─────────────────────────────────────────
+        const isMobile = window.innerWidth < 640;
+        const container = document.getElementById('particles');
+        for (let i = 0; i < (isMobile ? 4 : 10); i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.cssText = `left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--delay:${Math.random()*8}s;width:${1.5+Math.random()*2}px;height:${1.5+Math.random()*2}px;`;
+            container.appendChild(p);
+        }
+
+        // ── Accordion ─────────────────────────────────────────
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const trigger = item.querySelector('.faq-trigger');
+            const body    = item.querySelector('.faq-body');
+
+            trigger.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+
+                // Close all other open items
+                faqItems.forEach(other => {
+                    if (other !== item && other.classList.contains('open')) {
+                        other.classList.remove('open');
+                        other.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // Toggle this item
+                item.classList.toggle('open', !isOpen);
+                trigger.setAttribute('aria-expanded', String(!isOpen));
+
+                // Smooth scroll into view on open
+                if (!isOpen) {
+                    setTimeout(() => {
+                        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 80);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
