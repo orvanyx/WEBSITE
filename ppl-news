@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Community — Pirate Premier League</title>
+    <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/6837edfc2179.png">
+    <link rel="apple-touch-icon" href="https://cdn.imgchest.com/files/6837edfc2179.png">
+    <meta name="description" content="Pirate Premier League — Community news, match updates, vlogs and announcements.">
+    <meta property="og:title" content="PPL News & Community">
+    <meta property="og:description" content="Match updates, tournament news, vlogs and announcements from the Pirate Premier League.">
+    <meta property="og:image" content="https://cdn.imgchest.com/files/6837edfc2179.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ppl-styles.css">
+    <style>
+        /* ── News page layout ────────────────────────────────── */
+        .news-page {
+            position: relative;
+            z-index: 2;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 5.5rem 1.5rem 5rem;
+        }
+
+        /* ── Page hero ───────────────────────────────────────── */
+        .news-hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .news-hero-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--ppl-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .news-hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--ppl-gold);
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 28px rgba(240,192,64,0.4);
+            margin-bottom: 0.5rem;
+        }
+
+        .news-hero-sub {
+            font-size: 0.82rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ppl-muted);
+        }
+
+        /* ── Filter tabs ─────────────────────────────────────── */
+        .news-filters {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .news-filter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: rgba(240,192,64,0.05);
+            border: 1px solid var(--ppl-border);
+            color: var(--ppl-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .news-filter-btn:hover,
+        .news-filter-btn.active {
+            background: rgba(240,192,64,0.12);
+            border-color: var(--ppl-gold);
+            color: var(--ppl-gold);
+        }
+
+        /* ── Featured post ───────────────────────────────────── */
+        .news-featured {
+            background: var(--ppl-bg2);
+            border: 1px solid rgba(240,192,64,0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 260px;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .news-featured:hover {
+            border-color: var(--ppl-gold);
+            box-shadow: 0 12px 40px rgba(240,192,64,0.12);
+        }
+
+        .news-featured-visual {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0d2d1a 0%, #0a1f30 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        .news-featured-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 60%, var(--ppl-bg2));
+        }
+
+        .news-featured-body {
+            padding: 2rem 1.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .news-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+
+        .news-tag.announcement { background: rgba(240,192,64,0.12); color: var(--ppl-gold); border: 1px solid rgba(240,192,64,0.35); }
+        .news-tag.match        { background: rgba(39,174,96,0.12);  color: var(--ppl-green); border: 1px solid rgba(39,174,96,0.35); }
+        .news-tag.vlog         { background: rgba(192,57,43,0.12);  color: var(--ppl-red2);  border: 1px solid rgba(192,57,43,0.35); }
+        .news-tag.community    { background: rgba(88,101,242,0.12); color: #7c8fff;           border: 1px solid rgba(88,101,242,0.35); }
+        .news-tag.trophy       { background: rgba(240,192,64,0.08); color: var(--ppl-gold);   border: 1px solid rgba(240,192,64,0.2); }
+
+        .news-featured-title {
+            font-family: var(--font-title);
+            font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+            color: var(--ppl-text);
+            letter-spacing: 0.04em;
+            line-height: 1.3;
+        }
+
+        .news-featured-excerpt {
+            font-size: 0.88rem;
+            color: var(--ppl-muted);
+            line-height: 1.7;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.7rem;
+            color: var(--ppl-muted);
+            letter-spacing: 0.08em;
+        }
+
+        .news-meta-dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--ppl-muted);
+        }
+
+        .news-read-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--ppl-gold);
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            text-transform: uppercase;
+            margin-top: 0.25rem;
+            transition: gap 0.2s ease;
+        }
+
+        .news-read-btn:hover { gap: 0.7rem; }
+
+        /* ── Post grid ───────────────────────────────────────── */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .news-card {
+            background: var(--ppl-bg2);
+            border: 1px solid var(--ppl-border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        .news-card:hover {
+            border-color: rgba(240,192,64,0.45);
+            box-shadow: 0 8px 28px rgba(240,192,64,0.1);
+            -webkit-transform: translateY(-4px);
+            transform: translateY(-4px);
+        }
+
+        .news-card-visual {
+            height: 140px;
+            background: linear-gradient(135deg, #0a1f30 0%, #0d2d1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        /* Subtle shimmer on card visual */
+        .news-card-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(13,26,43,0.7));
+        }
+
+        .news-card-body {
+            padding: 1.1rem 1.25rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            flex: 1;
+        }
+
+        .news-card-title {
+            font-family: var(--font-title);
+            font-size: 0.95rem;
+            color: var(--ppl-text);
+            letter-spacing: 0.04em;
+            line-height: 1.4;
+        }
+
+        .news-card-excerpt {
+            font-size: 0.82rem;
+            color: var(--ppl-muted);
+            line-height: 1.65;
+            flex: 1;
+        }
+
+        .news-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--ppl-border2);
+        }
+
+        /* ── Vlog / video embed card ─────────────────────────── */
+        .news-vlog-card {
+            background: var(--ppl-bg2);
+            border: 1px solid rgba(192,57,43,0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .news-vlog-card:hover {
+            border-color: var(--ppl-red2);
+            box-shadow: 0 8px 28px rgba(192,57,43,0.15);
+        }
+
+        .news-vlog-embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 */
+            background: #000;
+        }
+
+        .news-vlog-embed iframe,
+        .news-vlog-embed video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Placeholder when no video URL is set */
+        .news-vlog-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #0d1a2b, #1a0a0a);
+            color: var(--ppl-muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .news-vlog-placeholder-icon { font-size: 2.5rem; }
+
+        .news-vlog-body {
+            padding: 1.1rem 1.25rem 1.25rem;
+        }
+
+        .news-vlog-body h4 {
+            font-family: var(--font-title);
+            font-size: 0.95rem;
+            color: var(--ppl-text);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.4rem;
+        }
+
+        .news-vlog-body p {
+            font-size: 0.82rem;
+            color: var(--ppl-muted);
+            line-height: 1.6;
+        }
+
+        /* ── Section labels ──────────────────────────────────── */
+        .news-section-label {
+            font-family: var(--font-title);
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--ppl-gold);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--ppl-border);
+            opacity: 0.85;
+        }
+
+        .news-block {
+            margin-bottom: 3rem;
+        }
+
+        /* ── COP clan callout ────────────────────────────────── */
+        .cop-banner {
+            background: linear-gradient(135deg, rgba(192,57,43,0.08) 0%, rgba(240,192,64,0.06) 100%);
+            border: 1px solid rgba(240,192,64,0.25);
+            border-left: 4px solid var(--ppl-gold);
+            border-radius: 12px;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+        }
+
+        .cop-banner-icon {
+            font-size: 2.2rem;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .cop-banner-body h3 {
+            font-family: var(--font-title);
+            font-size: 1.05rem;
+            color: var(--ppl-gold);
+            letter-spacing: 0.06em;
+            margin-bottom: 0.4rem;
+        }
+
+        .cop-banner-body p {
+            font-size: 0.88rem;
+            color: var(--ppl-muted);
+            line-height: 1.7;
+        }
+
+        .cop-banner-body strong {
+            color: var(--ppl-text);
+        }
+
+        .cop-banner-body .cop-tag {
+            display: inline-block;
+            margin-top: 0.75rem;
+            padding: 0.3rem 0.85rem;
+            border-radius: 6px;
+            background: rgba(240,192,64,0.1);
+            border: 1px solid rgba(240,192,64,0.3);
+            color: var(--ppl-gold);
+            font-family: var(--font-title);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .cop-banner-body .cop-tag:hover {
+            background: rgba(240,192,64,0.18);
+        }
+
+        /* ── Empty-state ─────────────────────────────────────── */
+        .news-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--ppl-muted);
+            font-size: 0.88rem;
+            letter-spacing: 0.08em;
+            border: 1px dashed var(--ppl-border);
+            border-radius: 12px;
+        }
+
+        .news-empty-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        /* ── Responsive ──────────────────────────────────────── */
+        @media (max-width: 640px) {
+            .news-page {
+                padding-top: 4.5rem;
+            }
+
+            .news-featured {
+                grid-template-columns: 1fr;
+            }
+
+            .news-featured-visual {
+                height: 140px;
+                font-size: 3.5rem;
+            }
+
+            .news-featured-visual::after {
+                background: linear-gradient(180deg, transparent 50%, var(--ppl-bg2));
+            }
+
+            .news-featured-body {
+                padding: 1.25rem;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cop-banner {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ppl-bg-layer"></div>
+    <div class="ppl-particles" id="particles"></div>
+
+    <!-- Nav -->
+    <a href="ppl.html" class="ppl-nav-btn" aria-label="Back to PPL">⚽</a>
+
+    <!-- Discord popup -->
+    <div class="ppl-discord-popup" id="discordPopup">
+        <button class="ppl-discord-popup-close" id="discordPopupClose" aria-label="Close">×</button>
+        <div class="ppl-discord-popup-inner">
+            <span class="ppl-discord-popup-icon">🏴‍☠️</span>
+            <div class="ppl-discord-popup-text">
+                <strong>Pirate Premier League</strong>
+                <span>Join our Discord server!</span>
+            </div>
+            <a href="https://discord.gg/CmF6H2d3KH" target="_blank" rel="noopener" class="ppl-discord-popup-btn">Join</a>
+        </div>
+    </div>
+
+    <button class="ppl-discord-bubble" id="discordBubble" aria-label="Join our Discord">
+        <svg width="22" height="17" viewBox="0 0 18 14" fill="currentColor" aria-hidden="true">
+            <path d="M15.245 1.187A14.88 14.88 0 0 0 11.576 0c-.17.302-.369.71-.506 1.033a13.703 13.703 0 0 0-4.14 0A11.12 11.12 0 0 0 6.421 0 14.916 14.916 0 0 0 2.748 1.19C.394 4.74-.242 8.2.077 11.608a15.04 15.04 0 0 0 4.6 2.338c.372-.508.703-1.047.99-1.61a9.77 9.77 0 0 1-1.558-.754c.13-.095.258-.195.382-.299 3.003 1.4 6.257 1.4 9.224 0 .125.104.253.204.382.3a9.773 9.773 0 0 1-1.56.753c.287.563.617 1.103.99 1.61a15.03 15.04 0 0 0 4.602-2.338c.377-3.986-.637-7.414-2.884-10.42ZM6.012 9.508c-.895 0-1.63-.83-1.63-1.845 0-1.016.72-1.847 1.63-1.847.91 0 1.645.831 1.63 1.847.002 1.015-.72 1.845-1.63 1.845Zm6.021 0c-.895 0-1.63-.83-1.63-1.845 0-1.016.72-1.847 1.63-1.847.91 0 1.644.831 1.629 1.847.002 1.015-.72 1.845-1.629 1.845Z"/>
+        </svg>
+        <span class="ppl-discord-bubble-dot"></span>
+    </button>
+
+    <!-- ── PAGE ─────────────────────────────────────────────── -->
+    <div class="news-page">
+
+        <!-- Hero -->
+        <div class="news-hero">
+            <p class="news-hero-eyebrow">// Pirate Premier League</p>
+            <h1 class="news-hero-title">News & Community</h1>
+            <p class="news-hero-sub">Match Updates · Announcements · Vlogs · Community Highlights</p>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="news-filters">
+            <button class="news-filter-btn active" data-filter="all">🗂 All</button>
+            <button class="news-filter-btn" data-filter="announcement">📣 Announcements</button>
+            <button class="news-filter-btn" data-filter="match">⚽ Match Reports</button>
+            <button class="news-filter-btn" data-filter="vlog">🎬 Vlogs</button>
+            <button class="news-filter-btn" data-filter="community">🌊 Community</button>
+        </div>
+
+        <!-- COP Clan callout -->
+        <div class="cop-banner" data-category="community">
+            <span class="cop-banner-icon">🏴‍☠️</span>
+            <div class="cop-banner-body">
+                <h3>[COP] Citizens of Pirate Clan</h3>
+                <p>
+                    PPL is home to the <strong>[COP] Citizens of Pirate Clan</strong> — an active DLS community
+                    competing across all PPL tournaments. If you want to join the crew, play in
+                    <strong>prized tournaments</strong>, and represent the Pirate flag, head to our Discord and
+                    look for the COP clan channel.
+                </p>
+                <a href="https://discord.gg/CmF6H2d3KH" target="_blank" rel="noopener" class="cop-tag">
+                    ⚔️ Join the Clan — discord.gg/CmF6H2d3KH
+                </a>
+            </div>
+        </div>
+
+        <!-- ── FEATURED ──────────────────────────────────────── -->
+        <div class="news-block" data-category="announcement">
+            <p class="news-section-label">📌 Featured</p>
+
+            <div class="news-featured">
+                <div class="news-featured-visual">🏆</div>
+                <div class="news-featured-body">
+                    <span class="news-tag announcement">📣 Announcement</span>
+                    <h2 class="news-featured-title">PPL Season 1 — Prized Tournament Open for Registration</h2>
+                    <p class="news-featured-excerpt">
+                        The Pirate Premier League is officially open for Season 1 registrations.
+                        This is a <strong>prized tournament</strong> — top finishers across the Main League,
+                        2nd League, 3rd League, and Champions League will be rewarded.
+                        Join now and stake your claim as Pirate King of DLS.
+                    </p>
+                    <div class="news-meta">
+                        <span>PPL Admin</span>
+                        <span class="news-meta-dot"></span>
+                        <span>Season 1 · 2026</span>
+                    </div>
+                    <a href="https://discord.gg/CmF6H2d3KH" target="_blank" rel="noopener" class="news-read-btn">
+                        Register on Discord →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── ANNOUNCEMENTS GRID ─────────────────────────────── -->
+        <div class="news-block" data-category="announcement">
+            <p class="news-section-label">📣 Announcements</p>
+            <div class="news-grid">
+
+                <div class="news-card">
+                    <div class="news-card-visual">⚽</div>
+                    <div class="news-card-body">
+                        <span class="news-tag announcement">📣 Announcement</span>
+                        <h3 class="news-card-title">Pirate Premier League — Rules & Format Released</h3>
+                        <p class="news-card-excerpt">
+                            The official PPL tournament format, match rules, and scoring system
+                            for Season 1 have been published. All players must read before registering.
+                        </p>
+                        <div class="news-card-footer">
+                            <div class="news-meta">
+                                <span>PPL Admin</span>
+                                <span class="news-meta-dot"></span>
+                                <span>2026</span>
+                            </div>
+                            <a href="ppl-faq.html" class="news-read-btn">Read →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-card-visual">🏴‍☠️</div>
+                    <div class="news-card-body">
+                        <span class="news-tag trophy">🏆 Tournament</span>
+                        <h3 class="news-card-title">Champions League Slots Now Open — Qualify Through Group Stages</h3>
+                        <p class="news-card-excerpt">
+                            Top performers from the Main League will earn a berth in the
+                            PPL Champions League — the most prestigious competition in the Pirate realm.
+                            Don't miss your shot at immortality.
+                        </p>
+                        <div class="news-card-footer">
+                            <div class="news-meta">
+                                <span>PPL Admin</span>
+                                <span class="news-meta-dot"></span>
+                                <span>2026</span>
+                            </div>
+                            <a href="https://play.toornament.com/tournaments/2498566758623475711/" target="_blank" rel="noopener" class="news-read-btn">Bracket →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-card-visual">🎖️</div>
+                    <div class="news-card-body">
+                        <span class="news-tag community">🌊 Community</span>
+                        <h3 class="news-card-title">[COP] Clan Recruiting — Citizens of Pirate Clan Now Open</h3>
+                        <p class="news-card-excerpt">
+                            The [COP] Citizens of Pirate Clan is actively recruiting skilled DLS players
+                            for the upcoming season. Join the Discord and head to the COP channel
+                            to apply and set sail with the crew.
+                        </p>
+                        <div class="news-card-footer">
+                            <div class="news-meta">
+                                <span>COP Clan</span>
+                                <span class="news-meta-dot"></span>
+                                <span>2026</span>
+                            </div>
+                            <a href="https://discord.gg/CmF6H2d3KH" target="_blank" rel="noopener" class="news-read-btn">Join →</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ── MATCH REPORTS ──────────────────────────────────── -->
+        <div class="news-block" data-category="match">
+            <p class="news-section-label">⚽ Match Reports</p>
+            <div class="news-empty">
+                <span class="news-empty-icon">⏳</span>
+                Match reports will appear here after each round is played.<br>
+                Season 1 fixtures are being confirmed — stay tuned!
+            </div>
+        </div>
+
+        <!-- ── VLOGS ──────────────────────────────────────────── -->
+        <div class="news-block" data-category="vlog">
+            <p class="news-section-label">🎬 Vlogs & Videos</p>
+            <div class="news-grid">
+
+                <!-- Vlog card — replace the src with a real YouTube embed URL when ready -->
+                <div class="news-vlog-card">
+                    <div class="news-vlog-embed">
+                        <!--
+                        ══════════════════════════════════════════════════
+                        HOW TO ADD A YOUTUBE VIDEO:
+                        Replace the placeholder div below with:
+                        <iframe
+                            src="https://www.youtube.com/embed/VIDEO_ID"
+                            allowfullscreen
+                            loading="lazy"
+                            title="Your video title"
+                        ></iframe>
+
+                        Get VIDEO_ID from your YouTube link:
+                        youtube.com/watch?v=VIDEO_ID
+                        ══════════════════════════════════════════════════
+                        -->
+                        <div class="news-vlog-placeholder">
+                            <span class="news-vlog-placeholder-icon">🎬</span>
+                            <span>Video Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="news-vlog-body">
+                        <span class="news-tag vlog" style="margin-bottom:0.5rem;">🎬 Vlog</span>
+                        <h4>PPL Season 1 — Opening Day Highlights</h4>
+                        <p>Behind-the-scenes of the first PPL season kickoff, featuring community reactions, match previews, and a message from the admin crew.</p>
+                        <div class="news-meta" style="margin-top:0.6rem;">
+                            <span>Orvanyx</span>
+                            <span class="news-meta-dot"></span>
+                            <span>Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-vlog-card">
+                    <div class="news-vlog-embed">
+                        <div class="news-vlog-placeholder">
+                            <span class="news-vlog-placeholder-icon">🏆</span>
+                            <span>Video Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="news-vlog-body">
+                        <span class="news-tag vlog" style="margin-bottom:0.5rem;">🎬 Vlog</span>
+                        <h4>Meet the Players — Messi & Neymar PPL Profile Breakdown</h4>
+                        <p>A deep dive into the season 1 stats, goals, and trophy runs of PPL's top players. Who takes the Golden Boot?</p>
+                        <div class="news-meta" style="margin-top:0.6rem;">
+                            <span>Orvanyx</span>
+                            <span class="news-meta-dot"></span>
+                            <span>Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ── COMMUNITY ──────────────────────────────────────── -->
+        <div class="news-block" data-category="community">
+            <p class="news-section-label">🌊 Community Highlights</p>
+            <div class="news-empty">
+                <span class="news-empty-icon">🌊</span>
+                Community highlights, fan posts, and Discord moments will be featured here.<br>
+                Share your best moments in the Discord and get featured!
+            </div>
+        </div>
+
+        <a href="ppl.html" class="ppl-back-btn">← Back to PPL Home</a>
+
+    </div><!-- /news-page -->
+
+    <script>
+        // ── Particles ──────────────────────────────────────────
+        const isMobile = window.innerWidth < 640;
+        const pCount = isMobile ? 4 : 12;
+        const pCont = document.getElementById('particles');
+        for (let i = 0; i < pCount; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.cssText = `left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--delay:${Math.random()*8}s;width:${1.5+Math.random()*2}px;height:${1.5+Math.random()*2}px;`;
+            pCont.appendChild(p);
+        }
+
+        // ── Category filter ────────────────────────────────────
+        const filterBtns = document.querySelectorAll('.news-filter-btn');
+        const blocks = document.querySelectorAll('.news-block, .cop-banner');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                blocks.forEach(block => {
+                    if (filter === 'all') {
+                        block.style.display = '';
+                    } else {
+                        const cat = block.dataset.category;
+                        block.style.display = (cat === filter) ? '' : 'none';
+                    }
+                });
+            });
+        });
+
+        // ── Discord popup ───────────────────────────────────────
+        const bubble   = document.getElementById('discordBubble');
+        const popup    = document.getElementById('discordPopup');
+        const closeBtn = document.getElementById('discordPopupClose');
+
+        if (!sessionStorage.getItem('pplPopupSeen')) {
+            setTimeout(() => {
+                popup.classList.add('ppl-discord-popup--visible');
+                sessionStorage.setItem('pplPopupSeen', '1');
+            }, 2500);
+        }
+
+        bubble.addEventListener('click', () => popup.classList.toggle('ppl-discord-popup--visible'));
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            popup.classList.remove('ppl-discord-popup--visible');
+        });
+        document.addEventListener('click', (e) => {
+            if (!popup.contains(e.target) && !bubble.contains(e.target)) {
+                popup.classList.remove('ppl-discord-popup--visible');
+            }
+        });
+    </script>
+
+</body>
+</html>

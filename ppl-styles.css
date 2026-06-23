@@ -31,8 +31,9 @@ body {
     color: var(--ppl-text);
     min-height: 100vh;
     overflow-x: hidden;
-    /* Fix Android scroll jitter */
-    -webkit-overflow-scrolling: touch;
+    /* Ensure vertical scroll is never blocked on mobile */
+    overflow-y: auto;
+    touch-action: pan-y;
 }
 
 /* Pirate cursor */
@@ -92,12 +93,13 @@ a:hover, button:hover {
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    /* Promote to own GPU layer */
+    /* GPU layer for smooth background */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     will-change: transform;
-    /* contain to prevent repaints bubbling */
-    contain: strict;
+    /* contain:strict blocks scroll on some Android Chrome builds —
+       use layout+style only (no size/paint containment on fixed els) */
+    contain: layout style;
 }
 
 .ppl-bg-layer::before {
@@ -319,6 +321,19 @@ div.ppl-crest {
     transform: translateY(-2px);
 }
 
+.ppl-action-btn.green {
+    background: rgba(39,174,96,0.1);
+    border-color: rgba(39,174,96,0.45);
+    color: var(--ppl-green);
+}
+.ppl-action-btn.green:hover {
+    background: rgba(39,174,96,0.2);
+    border-color: var(--ppl-green);
+    box-shadow: 0 6px 20px rgba(39,174,96,0.25);
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+}
+
 /* ── Gold divider ── */
 .ppl-divider {
     position: relative;
@@ -331,77 +346,54 @@ div.ppl-crest {
 }
 
 /* ============================================================
-   UTC TIME WIDGET
-   .utc-clock-wrap = our container in ppl.html
-   #ctuw, #ud, #ta = IDs used by the third-party widget script
-   We override the widget's own styles with higher specificity.
+   UTC CLOCK — self-contained, no external script
    ============================================================ */
-
-/* Outer wrapper we control fully */
 .utc-clock-wrap {
-    margin: 1.5rem auto 0;
+    margin: 1.75rem auto 0;
     display: flex;
     justify-content: center;
-    /* prevent widget from stretching full width on mobile */
     width: 100%;
 }
 
-/* The widget root div */
-#ctuw {
-    display: inline-flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 0.18rem !important;
-    background: rgba(240,192,64,0.06) !important;
-    border: 1px solid rgba(240,192,64,0.28) !important;
-    border-radius: 10px !important;
-    padding: 0.85rem 1.6rem 0.7rem !important;
-    /* Fixed width so it never goes full-screen on mobile */
-    width: auto !important;
-    min-width: 200px !important;
-    max-width: 300px !important;
-    box-sizing: border-box !important;
-    /* Reset anything the widget script might inject */
-    position: relative !important;
-    z-index: 2 !important;
-    text-align: center !important;
-    font-size: unset !important;
-    color: unset !important;
-    line-height: unset !important;
+.ppl-utc-box {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    background: rgba(240,192,64,0.06);
+    border: 1px solid rgba(240,192,64,0.28);
+    border-radius: 12px;
+    padding: 0.85rem 2rem 0.75rem;
+    min-width: 190px;
+    max-width: 300px;
 }
 
-/* "Current UTC Time" label link */
-#ctuw .mt,
-#ctuw .mt a {
-    font-family: var(--font-body) !important;
-    font-size: 0.6rem !important;
-    letter-spacing: 0.22em !important;
-    text-transform: uppercase !important;
-    color: var(--ppl-muted) !important;
-    text-decoration: none !important;
-    opacity: 0.65 !important;
-    display: block !important;
-}
-#ctuw .mt a:hover { color: var(--ppl-gold) !important; opacity: 1 !important; }
-
-/* The live time (HH:MM:SS) */
-#ctuw #ud {
-    font-family: var(--font-title) !important;
-    font-size: 1.6rem !important;
-    font-weight: 700 !important;
-    color: var(--ppl-gold) !important;
-    letter-spacing: 0.06em !important;
-    line-height: 1.2 !important;
-    display: block !important;
+.ppl-utc-label {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ppl-muted);
+    opacity: 0.75;
 }
 
-/* The date line */
-#ctuw #ta {
-    font-size: 0.65rem !important;
-    color: var(--ppl-muted) !important;
-    letter-spacing: 0.12em !important;
-    text-transform: uppercase !important;
-    display: block !important;
+.ppl-utc-time {
+    font-family: var(--font-title);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--ppl-gold);
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+    /* Prevent layout shift as digits change */
+    font-feature-settings: "tnum";
+}
+
+.ppl-utc-date {
+    font-size: 0.62rem;
+    color: var(--ppl-muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
 }
 
 /* ============================================================
@@ -1194,15 +1186,13 @@ div.ppl-crest {
         text-align: center;
     }
 
-    /* Clock — never wider than viewport */
-    .utc-clock-wrap { padding: 0 1rem; }
-    #ctuw {
-        min-width: 0 !important;
-        width: 100% !important;
-        max-width: 260px !important;
-        padding: 0.75rem 1.2rem 0.6rem !important;
+    /* Clock — compact on mobile */
+    .ppl-utc-box {
+        min-width: 0;
+        max-width: 240px;
+        padding: 0.7rem 1.25rem 0.6rem;
     }
-    #ctuw #ud { font-size: 1.3rem !important; }
+    .ppl-utc-time { font-size: 1.35rem; }
 
     /* Profile & FAQ pages */
     .ppl-profile-page, .faq-page { padding-top: 4rem; }
@@ -1234,4 +1224,170 @@ div.ppl-crest {
     }
     .ppl-bg-layer::before { animation: none; }
     .particle { display: none; }
+}
+
+/* ============================================================
+   DISCORD POPUP & BUBBLE (top-right)
+   ============================================================ */
+
+/* Pulsing bubble button */
+.ppl-discord-bubble {
+    position: fixed;
+    top: 1.2rem;
+    right: 1.2rem;
+    z-index: 200;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #5865f2;
+    border: 2px solid rgba(255,255,255,0.2);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(88,101,242,0.5);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.ppl-discord-bubble:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    box-shadow: 0 6px 28px rgba(88,101,242,0.7);
+}
+
+/* Online dot */
+.ppl-discord-bubble-dot {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #23d160;
+    border: 2px solid #060d18;
+    animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(35,209,96,0.6); }
+    50%      { box-shadow: 0 0 0 5px rgba(35,209,96,0); }
+}
+
+/* Popup panel */
+.ppl-discord-popup {
+    position: fixed;
+    top: calc(1.2rem + 58px); /* just below the bubble */
+    right: 1.2rem;
+    z-index: 199;
+    width: 280px;
+    background: #1e2336;
+    border: 1px solid rgba(88,101,242,0.45);
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(88,101,242,0.15);
+    padding: 1rem;
+    /* Hidden state */
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transform: translateY(-8px) scale(0.96);
+    transform: translateY(-8px) scale(0.96);
+    transition: opacity 0.25s ease, transform 0.25s ease, -webkit-transform 0.25s ease;
+    transform-origin: top right;
+}
+
+.ppl-discord-popup--visible {
+    opacity: 1;
+    pointer-events: all;
+    -webkit-transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1);
+}
+
+.ppl-discord-popup-close {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.65rem;
+    background: none;
+    border: none;
+    color: rgba(220,232,240,0.5);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.ppl-discord-popup-close:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+}
+
+.ppl-discord-popup-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-right: 1.2rem; /* space for × button */
+}
+
+.ppl-discord-popup-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.ppl-discord-popup-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.ppl-discord-popup-text strong {
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    color: var(--ppl-gold);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ppl-discord-popup-text span {
+    font-size: 0.75rem;
+    color: var(--ppl-muted);
+    letter-spacing: 0.03em;
+}
+
+.ppl-discord-popup-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    background: #5865f2;
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.ppl-discord-popup-btn:hover {
+    background: #4752c4;
+    -webkit-transform: translateY(-1px);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 400px) {
+    .ppl-discord-popup {
+        width: calc(100vw - 2.4rem);
+        right: 1.2rem;
+    }
 }
