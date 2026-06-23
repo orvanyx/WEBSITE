@@ -359,18 +359,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!--
+                            ══════════════════════════════════════════
+                            ADD SEASON ROWS HERE as matches are played.
+                            Copy a row from ppl-messi.html as template.
+                            ══════════════════════════════════════════
+                            -->
                             <tr>
-                               <td>Season 1</td>
-                                <td>PPL Main League</td>
-                                <td class="td-num td-white">6</td>
-                                <td class="td-num td-green">4</td>
-                                <td class="td-num td-white">1</td>
-                                <td class="td-num td-red">1</td>
-                                <td class="td-num td-gold">12</td>
-                                <td class="td-num td-green">7</td>
-                                <td class="td-num td-red">8</td>
-                                <td class="td-num td-gold">+11</td>
-                                <td>🏆 Champion</td> 
+                                <td colspan="11" style="text-align:center;color:var(--ppl-muted);padding:2rem;font-size:0.85rem;letter-spacing:0.1em;">
+                                    ⚓ No matches played yet — check back after Season 1
+                                </td>
                             </tr>
                         </tbody>
                     </table>
