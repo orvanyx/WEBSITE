@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haram Ball — PPL Player Profile | Pirate Premier League</title>
+    <title>testing — PPL Player Profile | Pirate Premier League</title>
     <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/6837edfc2179.png">
-    <meta name="description" content="Haram Ball — PPL Player Profile. Goals, assists, trophies and full season stats.">
-    <meta property="og:title" content="Haram Ball — PPL Player Profile">
+    <meta name="description" content="testing — PPL Player Profile. Goals, assists, trophies and full season stats.">
+    <meta property="og:title" content="testing — PPL Player Profile">
     <meta property="og:image" content="https://cdn.imgchest.com/files/6837edfc2179.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -237,7 +237,7 @@
                     <img src="YOUR_IMAGE_URL_HERE" alt="Haram Ball">
                     ══════════════════════════════════════════════
                     -->
-                    <span class="avatar-placeholder"><img src="https://cdn.imgchest.com/files/7e56bbedd683.webp" alt="Haram Ball"</span>
+                    <span class="avatar-placeholder">🧪</span>
                 </div>
                 <!-- Position badge — links to DLS tracker -->
                 <a
