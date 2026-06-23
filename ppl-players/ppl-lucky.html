@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky — PPL Player Profile | Pirate Premier League</title>
+    <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/6837edfc2179.png">
+    <meta name="description" content="Lucky — PPL Player Profile. Goals, assists, trophies and full season stats.">
+    <meta property="og:title" content="Lucky — PPL Player Profile">
+    <meta property="og:image" content="https://cdn.imgchest.com/files/204453c763c3.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../ppl-styles.css">
+    <style>
+        /* ── Discord popup button — top right ── */
+        .discord-fab {
+            position: fixed;
+            top: 1.2rem;
+            right: 1.2rem;
+            z-index: 300;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #5865F2;
+            border: 2px solid rgba(124,143,255,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(88,101,242,0.45);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        .discord-fab:hover {
+            -webkit-transform: scale(1.12);
+            transform: scale(1.12);
+            box-shadow: 0 6px 28px rgba(88,101,242,0.65);
+        }
+
+        .discord-fab svg { flex-shrink: 0; }
+
+        /* ── Discord modal overlay ── */
+        .discord-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(6,13,24,0.85);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .discord-modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .discord-modal {
+            background: #0d1a2b;
+            border: 1px solid rgba(88,101,242,0.4);
+            border-radius: 16px;
+            padding: 2rem 1.8rem;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(88,101,242,0.25);
+            transform: scale(0.92);
+            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+            position: relative;
+        }
+
+        .discord-modal-overlay.open .discord-modal {
+            transform: scale(1);
+        }
+
+        .discord-modal-close {
+            position: absolute;
+            top: 0.9rem;
+            right: 0.9rem;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(220,232,240,0.7);
+            font-size: 1.1rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .discord-modal-close:hover {
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+        }
+
+        .discord-modal-icon {
+            font-size: 2.8rem;
+            margin-bottom: 0.9rem;
+            filter: drop-shadow(0 0 12px rgba(88,101,242,0.5));
+        }
+
+        .discord-modal-title {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ppl-gold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .discord-modal-sub {
+            font-size: 0.82rem;
+            color: var(--ppl-muted);
+            margin-bottom: 1.4rem;
+            line-height: 1.55;
+        }
+
+        .discord-modal-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+            border-radius: 8px;
+            background: #5865F2;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        .discord-modal-btn:hover {
+            background: #4752c4;
+            -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(88,101,242,0.5);
+        }
+
+        /* ── Tracker link badge on position ── */
+        .tracker-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.72rem;
+            color: var(--ppl-gold);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            border-bottom: 1px dashed rgba(240,192,64,0.4);
+            padding-bottom: 1px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .tracker-link:hover {
+            color: #fff;
+            border-color: var(--ppl-gold);
+        }
+
+        /* ── Profile pic placeholder note ── */
+        .avatar-placeholder {
+            font-size: 2.2rem;
+            /* ↓ Replace this emoji with <img src="YOUR_URL"> once you have the image */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ppl-bg-layer"></div>
+    <div class="ppl-particles" id="particles"></div>
+
+    <!-- Home nav — top LEFT -->
+    <a href="../index.html" class="ppl-nav-btn" aria-label="Home">🏠</a>
+
+    <!-- Discord popup button — top RIGHT -->
+    <button class="discord-fab" id="discordFab" aria-label="Join PPL Discord" title="Join our Discord">
+        <svg width="22" height="17" viewBox="0 0 22 17" fill="white" aria-hidden="true">
+            <path d="M18.634 1.43A18.218 18.218 0 0 0 14.14 0c-.207.37-.45.87-.617 1.264a16.793 16.793 0 0 0-5.052 0A13.583 13.583 0 0 0 7.853 0 18.255 18.255 0 0 0 3.355 1.433C.48 5.793-.295 10.037.093 14.222a18.415 18.415 0 0 0 5.623 2.857c.454-.621.859-1.28 1.21-1.97a11.944 11.944 0 0 1-1.903-.921c.159-.117.315-.238.466-.366 3.67 1.712 7.648 1.712 11.27 0 .153.128.31.25.467.366a11.952 11.952 0 0 1-1.906.921 13.413 13.413 0 0 0 1.21 1.97 18.38 18.38 0 0 0 5.624-2.857c.46-4.872-.778-9.079-3.52-12.793ZM7.34 11.618c-1.093 0-1.99-1.015-1.99-2.254 0-1.242.88-2.258 1.99-2.258 1.11 0 2.009 1.016 1.99 2.258.002 1.239-.88 2.254-1.99 2.254Zm7.355 0c-1.093 0-1.99-1.015-1.99-2.254 0-1.242.88-2.258 1.99-2.258 1.11 0 2.009 1.016 1.99 2.258.002 1.239-.88 2.254-1.99 2.254Z"/>
+        </svg>
+    </button>
+
+    <!-- Discord popup modal -->
+    <div class="discord-modal-overlay" id="discordModal" role="dialog" aria-modal="true" aria-label="Join Discord">
+        <div class="discord-modal">
+            <button class="discord-modal-close" id="discordClose" aria-label="Close">×</button>
+            <div class="discord-modal-icon">🏴‍☠️</div>
+            <div class="discord-modal-title">Pirate Premier League</div>
+            <p class="discord-modal-sub">
+                Join the PPL Discord to participate in tournaments, track results, and connect with the crew!
+            </p>
+            <a
+                href="https://discord.gg/CmF6H2d3KH"
+                target="_blank"
+                rel="noopener"
+                class="discord-modal-btn"
+                aria-label="Join Discord Server"
+            >
+                <svg width="18" height="14" viewBox="0 0 18 14" fill="white" aria-hidden="true">
+                    <path d="M15.245 1.187A14.88 14.88 0 0 0 11.576 0c-.17.302-.369.71-.506 1.033a13.703 13.703 0 0 0-4.14 0A11.12 11.12 0 0 0 6.421 0 14.916 14.916 0 0 0 2.748 1.19C.394 4.74-.242 8.2.077 11.608a15.04 15.04 0 0 0 4.6 2.338c.372-.508.703-1.047.99-1.61a9.77 9.77 0 0 1-1.558-.754c.13-.095.258-.195.382-.299 3.003 1.4 6.257 1.4 9.224 0 .125.104.253.204.382.3a9.773 9.773 0 0 1-1.56.753c.287.563.617 1.103.99 1.61a15.03 15.03 0 0 0 4.602-2.338c.377-3.986-.637-7.414-2.884-10.42ZM6.012 9.508c-.895 0-1.63-.83-1.63-1.845 0-1.016.72-1.847 1.63-1.847.91 0 1.645.831 1.63 1.847.002 1.015-.72 1.845-1.63 1.845Zm6.021 0c-.895 0-1.63-.83-1.63-1.845 0-1.016.72-1.847 1.63-1.847.91 0 1.644.831 1.629 1.847.002 1.015-.72 1.845-1.629 1.845Z"/>
+                </svg>
+                Join Discord Server
+            </a>
+        </div>
+    </div>
+
+    <!-- ── PROFILE PAGE ───────────────────────────────────────── -->
+    <div class="ppl-profile-page">
+
+        <a href="../ppl.html" class="ppl-back-btn">← Back to PPL</a>
+
+        <!-- Hero -->
+        <div class="profile-hero">
+            <div class="profile-pic-wrap">
+                <div class="profile-avatar">
+                    <!--
+                    ══════════════════════════════════════════════
+                    PROFILE PICTURE — paste your image URL below.
+                    Replace the emoji span with:
+                    <img src="YOUR_IMAGE_URL_HERE" alt="Haram Ball">
+                    ══════════════════════════════════════════════
+                    -->
+                    <span class="avatar-placeholder"><img src="https://cdn.imgchest.com/files/204453c763c3.webp" alt="Haram Ball"</span>
+                </div>
+                <!-- Position badge — links to DLS tracker -->
+                <a
+                    href="https://tracker.ftgames.com"
+                    target="_blank"
+                    rel="noopener"
+                    class="profile-position-badge tracker-link"
+                    title="View DLS Tracker Profile"
+                >Midfielder</a>
+            </div>
+            <div class="profile-meta">
+                <h1 class="profile-name">LUCKY</h1>
+                <p class="profile-title">// Pirate Premier League · DLS Mobile</p>
+                <div class="profile-badges">
+                    <span class="ppl-badge gold">🔥 Pirate Family</span>
+                    <span class="ppl-badge red">🏴‍☠️ Pirate Crew</span>
+                    <span class="ppl-badge green">✅ Active</span>
+                </div>
+                <div style="margin-top:0.6rem;">
+                    <a
+                        href="https://tracker.ftgames.com"
+                        target="_blank"
+                        rel="noopener"
+                        class="tracker-link"
+                    >📊 View DLS Tracker Profile →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sections -->
+        <div class="profile-sections">
+
+            <!-- ── CAREER STATS ───────────────────────────────── -->
+            <div class="profile-section">
+                <div class="profile-section-header">
+                    <span class="profile-section-icon">📊</span>
+                    <h3>Career Statistics</h3>
+                </div>
+                <!--
+                ══════════════════════════════════════════════════════
+                EDIT STATS: change the numbers inside stat-num divs.
+                Colours: gold=goals/G+A/rate  green=assists/wins
+                         red=conceded/losses  white=neutral
+                ══════════════════════════════════════════════════════
+                -->
+                <div class="stats-grid">
+                    <div class="stat-cell">
+                        <div class="stat-num gold">0</div>
+                        <div class="stat-label">Goals</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num green">0</div>
+                        <div class="stat-label">Assists</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num red">0</div>
+                        <div class="stat-label">Conceded</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num white">0</div>
+                        <div class="stat-label">Difference</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num gold">0</div>
+                        <div class="stat-label">G + A</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num white">0</div>
+                        <div class="stat-label">Games Played</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num green">0</div>
+                        <div class="stat-label">Wins</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num white">0</div>
+                        <div class="stat-label">Draws</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num red">0</div>
+                        <div class="stat-label">Losses</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num gold">0.00</div>
+                        <div class="stat-label">Goals / Game</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num green">0</div>
+                        <div class="stat-label">Clean Sheets</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num white">0%</div>
+                        <div class="stat-label">Win Rate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── SEASON TABLE ───────────────────────────────── -->
+            <div class="profile-section">
+                <div class="profile-section-header">
+                    <span class="profile-section-icon">📋</span>
+                    <h3>Season-by-Season Breakdown</h3>
+                </div>
+                <div class="season-table-wrap">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Season</th>
+                                <th>Competition</th>
+                                <th>GP</th>
+                                <th>W</th>
+                                <th>D</th>
+                                <th>L</th>
+                                <th>Goals</th>
+                                <th>Assists</th>
+                                <th>Conc.</th>
+                                <th>Diff.</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                               <td>Season 1</td>
+                                <td>PPL Main League</td>
+                                <td class="td-num td-white">0</td>
+                                <td class="td-num td-green">0</td>
+                                <td class="td-num td-white">0</td>
+                                <td class="td-num td-red">0</td>
+                                <td class="td-num td-gold">0</td>
+                                <td class="td-num td-green">0</td>
+                                <td class="td-num td-red">0</td>
+                                <td class="td-num td-gold">+0</td>
+                                <td>🏆 0 Placed</td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ── TROPHIES ───────────────────────────────────── -->
+            <div class="profile-section">
+                <div class="profile-section-header">
+                    <span class="profile-section-icon">🏆</span>
+                    <h3>Honours &amp; Awards</h3>
+                </div>
+                <div class="trophies-grid">
+                    <!--
+                    ══════════════════════════════════════════════════
+                    ADD TROPHIES HERE as they are won.
+                    Trophy types:
+                      class="trophy-item league"    → gold border
+                      class="trophy-item champions" → blue border
+                      class="trophy-item award"     → green border
+                    Icons: 🏆 Main  🥈 2nd  🥉 3rd  🌟 UCL  👟 Boot  🎯 Playmaker
+                    ══════════════════════════════════════════════════
+                    -->
+                    <div style="padding:1.5rem;color:var(--ppl-muted);font-size:0.82rem;letter-spacing:0.08em;text-align:center;width:100%;">
+                        ⚓ No trophies yet — season in progress
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /profile-sections -->
+    </div><!-- /ppl-profile-page -->
+
+    <script>
+        // ── Particles ─────────────────────────────────────────
+        const container = document.getElementById('particles');
+        const isMobile = window.innerWidth < 640;
+        for (let i = 0; i < (isMobile ? 6 : 14); i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.cssText = `left:${Math.random()*100}%;--dur:${7+Math.random()*9}s;--delay:${Math.random()*6}s;width:${1.5+Math.random()*2.5}px;height:${1.5+Math.random()*2.5}px;`;
+            container.appendChild(p);
+        }
+
+        // ── Discord popup ─────────────────────────────────────
+        const fab     = document.getElementById('discordFab');
+        const modal   = document.getElementById('discordModal');
+        const closeBtn = document.getElementById('discordClose');
+
+        fab.addEventListener('click', () => modal.classList.add('open'));
+        closeBtn.addEventListener('click', () => modal.classList.remove('open'));
+
+        // Close on backdrop click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('open');
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') modal.classList.remove('open');
+        });
+    </script>
+</body>
+</html>
