@@ -15,6 +15,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="ppl-styles.css">
+
+    <!-- UTC widget script in <head> so it's ready before the div renders -->
+    <script src="https://currenttimeutc.com/js/widget.js" defer></script>
 </head>
 <body>
 
@@ -26,7 +29,8 @@
 
     <!-- ── HEADER ────────────────────────────────────────────── -->
     <header class="ppl-header">
-        <!-- Image crest -->
+
+        <!-- Crest image -->
         <img
             src="https://cdn.imgchest.com/files/6837edfc2179.png"
             alt="Pirate Premier League Crest"
@@ -45,14 +49,6 @@
             <span class="ppl-badge green">🎮 Active Season</span>
         </div>
 
-        <!-- UTC Time Widget -->
-        <script src="https://currenttimeutc.com/js/widget.js"></script>
-        <div id="ctuw">
-            <div class="mt"><a href="https://currenttimeutc.com/">Current UTC Time</a></div>
-            <div id="ud">Loading time…</div>
-            <div id="ta"></div>
-        </div>
-
         <!-- Action buttons -->
         <div class="ppl-action-row">
             <a
@@ -60,17 +56,30 @@
                 target="_blank"
                 rel="noopener"
                 class="ppl-action-btn gold"
-                title="View the tournament bracket on Toornament"
-            >🏆 Tournament Home</a>
+            >🏆 Tournament</a>
 
             <a href="ppl-search.html" class="ppl-action-btn red">
-                🔍 Player Search
+                🔍 Players
             </a>
 
             <a href="ppl-faq.html" class="ppl-action-btn blue">
                 ❓ FAQ
             </a>
         </div>
+
+        <!--
+            UTC Clock widget.
+            Placed AFTER all header content so it sits at the bottom of the header.
+            The wrapper div gives us full control over sizing and spacing.
+        -->
+        <div class="utc-clock-wrap">
+            <div id="ctuw">
+                <div class="mt"><a href="https://currenttimeutc.com/" target="_blank" rel="noopener">UTC Time</a></div>
+                <div id="ud">Loading…</div>
+                <div id="ta"></div>
+            </div>
+        </div>
+
     </header>
 
     <div class="ppl-divider"></div>
@@ -78,12 +87,12 @@
     <!-- ── MAIN ─────────────────────────────────────────────── -->
     <main class="ppl-main">
 
-        <!-- Discord Section -->
         <section class="discord-section" aria-label="Discord Community">
             <p class="section-eyebrow">🌊 Community Hub</p>
             <h2 class="section-title">Join the Crew on Discord</h2>
 
             <div class="discord-layout">
+
                 <!-- Discord Widget -->
                 <div class="discord-widget-wrap">
                     <iframe
@@ -139,20 +148,21 @@
                         aria-label="Join the PPL Discord server"
                     >
                         <svg width="18" height="14" viewBox="0 0 18 14" fill="white" aria-hidden="true">
-                            <path d="M15.245 1.187A14.88 14.88 0 0 0 11.576 0c-.17.302-.369.71-.506 1.033a13.703 13.703 0 0 0-4.14 0A11.12 11.12 0 0 0 6.421 0 14.916 14.916 0 0 0 2.748 1.19C.394 4.74-.242 8.2.077 11.608a15.04 15.04 0 0 0 4.6 2.338c.372-.508.703-1.047.99-1.61a9.77 9.77 0 0 1-1.558-.754c.13-.095.258-.195.382-.299 3.003 1.4 6.257 1.4 9.224 0 .125.104.253.204.382.3a9.773 9.773 0 0 1-1.56.753c.287.563.617 1.103.99 1.61a15.03 15.03 0 0 0 4.602-2.338c.377-3.986-.637-7.414-2.884-10.42ZM6.012 9.508c-.895 0-1.63-.83-1.63-1.845 0-1.016.72-1.847 1.63-1.847.91 0 1.645.831 1.63 1.847.002 1.015-.72 1.845-1.63 1.845Zm6.021 0c-.895 0-1.63-.83-1.63-1.845 0-1.016.72-1.847 1.63-1.847.91 0 1.644.831 1.629 1.847.002 1.015-.72 1.845-1.629 1.845Z"/>
+                            <path d="M15.245 1.187A14.88 14.88 0 0 0 11.576 0c-.17.302-.369.71-.506 1.033a13.703 13.703 0 0 0-4.14 0A11.12 11.12 0 0 0 6.421 0 14.916 14.916 0 0 0 2.748 1.19C.394 4.74-.242 8.2.077 11.608a15.04 15.04 0 0 0 4.6 2.338c.372-.508.703-1.047.99-1.61a9.77 9.77 0 0 1-1.558-.754c.13-.095.258-.195.382-.299 3.003 1.4 6.257 1.4 9.224 0 .125.104.253.204.382.3a9.773 9.773 0 0 1-1.56.753c.287.563.617 1.103.99 1.61a15.03 15.04 0 0 0 4.602-2.338c.377-3.986-.637-7.414-2.884-10.42ZM6.012 9.508c-.895 0-1.63-.83-1.63-1.845 0-1.016.72-1.847 1.63-1.847.91 0 1.645.831 1.63 1.847.002 1.015-.72 1.845-1.63 1.845Zm6.021 0c-.895 0-1.63-.83-1.63-1.845 0-1.016.72-1.847 1.63-1.847.91 0 1.644.831 1.629 1.847.002 1.015-.72 1.845-1.629 1.845Z"/>
                         </svg>
                         Join Discord Server
                     </a>
                 </div>
+
             </div>
         </section>
 
     </main>
 
     <script>
-        // Particles — fewer on mobile to prevent jank
+        // Particles — fewer on mobile
         const isMobile = window.innerWidth < 640;
-        const count = isMobile ? 6 : 16;
+        const count = isMobile ? 5 : 16;
         const container = document.getElementById('particles');
         for (let i = 0; i < count; i++) {
             const p = document.createElement('div');
@@ -160,6 +170,34 @@
             p.style.cssText = `left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--delay:${Math.random()*8}s;width:${1.5+Math.random()*2.5}px;height:${1.5+Math.random()*2.5}px;`;
             container.appendChild(p);
         }
+
+        // Fallback clock — if the widget script fails to load or is blocked
+        (function startFallbackClock() {
+            function updateClock() {
+                const udEl = document.getElementById('ud');
+                const taEl = document.getElementById('ta');
+                if (!udEl) return;
+
+                const now  = new Date();
+                const hh   = String(now.getUTCHours()).padStart(2,'0');
+                const mm   = String(now.getUTCMinutes()).padStart(2,'0');
+                const ss   = String(now.getUTCSeconds()).padStart(2,'0');
+                const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+                const mons = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+                // Only write our time if the widget hasn't already populated the element
+                const text = `${hh}:${mm}:${ss}`;
+                if (udEl.textContent === 'Loading…' || udEl.textContent.match(/^\d{2}:\d{2}:\d{2}$/)) {
+                    udEl.textContent = text;
+                }
+                if (taEl && (taEl.textContent === '' || taEl.dataset.fallback === 'true')) {
+                    taEl.dataset.fallback = 'true';
+                    taEl.textContent = `${days[now.getUTCDay()]}, ${mons[now.getUTCMonth()]} ${now.getUTCDate()} ${now.getUTCFullYear()}`;
+                }
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+        })();
     </script>
 
 </body>
