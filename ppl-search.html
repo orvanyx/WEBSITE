@@ -11,11 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="ppl-styles.css">
     <style>
-        /* ── Compact search page layout ── */
+        /* ─── Search page shell ─── */
         .search-page {
             position: relative;
             z-index: 2;
-            max-width: 900px;
+            max-width: 780px;
             margin: 0 auto;
             padding: 5rem 1.5rem 5rem;
         }
@@ -41,7 +41,51 @@
             text-transform: uppercase;
         }
 
-        /* Compact cards */
+        /* ─── Prompt shown before any input ─── */
+        .search-prompt {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--ppl-muted);
+        }
+
+        .search-prompt-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(240,192,64,0.3));
+        }
+
+        .search-prompt-text {
+            font-family: var(--font-title);
+            font-size: 0.82rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        /* ─── Results count label ─── */
+        .results-count {
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ppl-muted);
+            margin-bottom: 0.85rem;
+            padding-left: 0.2rem;
+            min-height: 1.2em;
+            transition: opacity 0.2s;
+        }
+
+        /* ─── Compact card list ─── */
+        .compact-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ─── Individual compact card ─── */
         .player-card-compact {
             display: flex;
             align-items: center;
@@ -52,9 +96,13 @@
             padding: 0.85rem 1.1rem;
             text-decoration: none;
             color: inherit;
-            transition: all 0.25s ease;
+            transition: border-color 0.25s, background 0.25s,
+                        -webkit-transform 0.25s, transform 0.25s,
+                        box-shadow 0.25s;
             position: relative;
             overflow: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
         }
 
         .player-card-compact::before {
@@ -70,8 +118,8 @@
         .player-card-compact:hover {
             border-color: rgba(240,192,64,0.45);
             background: var(--ppl-bg3);
-            -webkit-transform: translateX(4px);
-            transform: translateX(4px);
+            -webkit-transform: translateX(5px);
+            transform: translateX(5px);
             box-shadow: 0 4px 20px rgba(240,192,64,0.1);
         }
 
@@ -89,10 +137,10 @@
             font-size: 1.3rem;
             flex-shrink: 0;
             overflow: hidden;
+            transition: border-color 0.25s;
         }
 
         .player-card-compact:hover .compact-avatar { border-color: var(--ppl-gold); }
-
         .compact-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
         .compact-info { flex: 1; min-width: 0; }
@@ -107,19 +155,14 @@
         }
 
         .compact-role {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: var(--ppl-muted);
             letter-spacing: 0.1em;
             text-transform: uppercase;
         }
 
-        .compact-stats {
-            display: flex;
-            gap: 1rem;
-            flex-shrink: 0;
-        }
-
-        .compact-stat { text-align: center; }
+        .compact-stats { display: flex; gap: 1rem; flex-shrink: 0; }
+        .compact-stat  { text-align: center; }
 
         .compact-stat-num {
             font-family: var(--font-title);
@@ -130,7 +173,7 @@
         }
 
         .compact-stat-lbl {
-            font-size: 0.58rem;
+            font-size: 0.56rem;
             color: var(--ppl-muted);
             letter-spacing: 0.1em;
             text-transform: uppercase;
@@ -139,47 +182,39 @@
         .compact-trophies {
             display: flex;
             gap: 0.2rem;
-            flex-shrink: 0;
             flex-wrap: wrap;
             max-width: 90px;
+            flex-shrink: 0;
         }
 
         .compact-trophies .trophy-mini { font-size: 0.9rem; }
 
         .compact-arrow {
             color: var(--ppl-muted);
-            font-size: 0.9rem;
-            transition: -webkit-transform 0.25s, transform 0.25s;
+            font-size: 0.88rem;
             flex-shrink: 0;
+            transition: -webkit-transform 0.25s, transform 0.25s, color 0.25s;
         }
 
         .player-card-compact:hover .compact-arrow {
             color: var(--ppl-gold);
-            -webkit-transform: translateX(3px);
-            transform: translateX(3px);
+            -webkit-transform: translateX(4px);
+            transform: translateX(4px);
         }
 
-        /* Results grid for compact cards */
-        .compact-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 0.65rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Search results count */
-        .results-count {
-            font-family: var(--font-body);
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
+        /* ─── No results ─── */
+        .no-results {
+            text-align: center;
+            padding: 2.5rem;
             color: var(--ppl-muted);
-            margin-bottom: 1rem;
-            padding-left: 0.2rem;
+            font-size: 0.88rem;
+            letter-spacing: 0.1em;
+            display: none;
         }
 
+        /* ─── Mobile tweaks ─── */
         @media (max-width: 520px) {
-            .compact-stats  { gap: 0.6rem; }
+            .compact-stats   { gap: 0.6rem; }
             .compact-trophies { display: none; }
         }
     </style>
@@ -205,23 +240,31 @@
                 type="text"
                 id="playerSearch"
                 class="ppl-search"
-                placeholder="Type a player name…"
+                placeholder="Type a player name to search…"
                 autocomplete="off"
                 aria-label="Search players"
-                autofocus
+                spellcheck="false"
             >
         </div>
 
-        <p class="results-count" id="resultsCount">Showing all players</p>
+        <!-- Results label — hidden until user types -->
+        <p class="results-count" id="resultsCount" aria-live="polite" style="display:none;"></p>
 
-        <!-- Compact player cards list -->
-        <div class="compact-grid" id="playerGrid">
+        <!-- Prompt shown before any search -->
+        <div class="search-prompt" id="searchPrompt">
+            <span class="search-prompt-icon">⚓</span>
+            <p class="search-prompt-text">Type a name above to find a pirate</p>
+        </div>
 
-            <!-- ═══════════════════════════════════════════════════
+        <!-- Player cards — all hidden until search -->
+        <div class="compact-grid" id="playerGrid" style="display:none;">
+
+            <!-- ═══════════════════════════════════════════════════════════
                  PLAYER: MESSI
-                 To add players: copy one block, edit name/stats/href
-                 ═══════════════════════════════════════════════════ -->
-            <a href="ppl-messi.html" class="player-card-compact" data-name="messi">
+                 data-name MUST be lowercase — it is what search matches on
+                 href points to ppl-players/ subfolder
+                 ═══════════════════════════════════════════════════════════ -->
+            <a href="ppl-players/ppl-messi.html" class="player-card-compact" data-name="messi">
                 <div class="compact-avatar">⭐</div>
                 <div class="compact-info">
                     <div class="compact-name">MESSI</div>
@@ -248,10 +291,10 @@
                 <span class="compact-arrow" aria-hidden="true">→</span>
             </a>
 
-            <!-- ═══════════════════════════════════════════════════
+            <!-- ═══════════════════════════════════════════════════════════
                  PLAYER: NEYMAR
-                 ═══════════════════════════════════════════════════ -->
-            <a href="ppl-neymar.html" class="player-card-compact" data-name="neymar">
+                 ═══════════════════════════════════════════════════════════ -->
+            <a href="ppl-players/ppl-neymar.html" class="player-card-compact" data-name="neymar">
                 <div class="compact-avatar">🌟</div>
                 <div class="compact-info">
                     <div class="compact-name">NEYMAR</div>
@@ -278,60 +321,126 @@
                 <span class="compact-arrow" aria-hidden="true">→</span>
             </a>
 
+            <!-- ═══════════════════════════════════════════════════════════
+                 PLAYER: HARAM BALL
+                 ═══════════════════════════════════════════════════════════ -->
+            <a href="ppl-players/ppl-haramball.html" class="player-card-compact" data-name="haram ball haramball haram">
+                <div class="compact-avatar">🔥</div>
+                <div class="compact-info">
+                    <div class="compact-name">HARAM BALL</div>
+                    <div class="compact-role">Forward · PPL Season 1</div>
+                </div>
+                <div class="compact-stats">
+                    <div class="compact-stat">
+                        <span class="compact-stat-num">0</span>
+                        <span class="compact-stat-lbl">Goals</span>
+                    </div>
+                    <div class="compact-stat">
+                        <span class="compact-stat-num">0</span>
+                        <span class="compact-stat-lbl">Assists</span>
+                    </div>
+                </div>
+                <div class="compact-trophies">
+                    <span class="trophy-mini" title="No trophies yet">⚓</span>
+                </div>
+                <span class="compact-arrow" aria-hidden="true">→</span>
+            </a>
+
             <!--
-            ═══════════════════════════════════════════════════════════
-            ADD NEW PLAYERS HERE — copy a block above and change:
-              · href="ppl-PLAYERNAME.html"
-              · data-name="playername"  ← lowercase, used for search
-              · The avatar emoji (or add <img> inside .compact-avatar)
-              · .compact-name text
-              · .compact-role (position · season)
-              · Goal / Assist numbers
-              · Trophy emojis (remove any not earned)
-            See README-PPL.md for full guide.
-            ═══════════════════════════════════════════════════════════
+            ═══════════════════════════════════════════════════════════════
+            ADD NEW PLAYERS HERE — copy one block above and edit:
+              • href="ppl-players/ppl-PLAYERNAME.html"
+              • data-name="firstname lastname nickname"  ← all lowercase,
+                space-separated aliases that search will match on
+              • .compact-avatar emoji (or swap to <img src="...">)
+              • .compact-name / .compact-role text
+              • Goals & Assists numbers
+              • Trophy emojis (remove any the player hasn't earned)
+            Full guide: README-PPL.md
+            ═══════════════════════════════════════════════════════════════
             -->
 
-        </div>
+        </div><!-- /playerGrid -->
 
-        <div class="no-results" id="noResults" style="display:none;">
-            ⚓ No pirates found matching "<span id="noResultsQuery"></span>"
+        <div class="no-results" id="noResults">
+            ⚓ No pirates found for "<span id="noResultsQuery"></span>"
         </div>
 
         <a href="ppl.html" class="ppl-back-btn">← Back to PPL Home</a>
 
-    </div>
+    </div><!-- /search-page -->
 
     <script>
-        // ── Particles (light) ─────────────────────────────────
-        const container = document.getElementById('particles');
-        const isMobile = window.innerWidth < 640;
-        const count = isMobile ? 4 : 10;
-        for (let i = 0; i < count; i++) {
+        // ── Particles (lighter on mobile) ─────────────────────
+        const pCont  = document.getElementById('particles');
+        const mobile = window.innerWidth < 640;
+        for (let i = 0; i < (mobile ? 4 : 10); i++) {
             const p = document.createElement('div');
             p.className = 'particle';
             p.style.cssText = `left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--delay:${Math.random()*8}s;width:${1.5+Math.random()*2}px;height:${1.5+Math.random()*2}px;`;
-            container.appendChild(p);
+            pCont.appendChild(p);
         }
 
-        // ── Search filter ─────────────────────────────────────
-        const searchInput  = document.getElementById('playerSearch');
-        const cards        = document.querySelectorAll('.player-card-compact');
-        const noResults    = document.getElementById('noResults');
-        const noResultsQ   = document.getElementById('noResultsQuery');
-        const countEl      = document.getElementById('resultsCount');
-        const total        = cards.length;
+        // ── Elements ──────────────────────────────────────────
+        const searchInput = document.getElementById('playerSearch');
+        const grid        = document.getElementById('playerGrid');
+        const prompt      = document.getElementById('searchPrompt');
+        const countEl     = document.getElementById('resultsCount');
+        const noResults   = document.getElementById('noResults');
+        const noResultsQ  = document.getElementById('noResultsQuery');
+        const cards       = Array.from(document.querySelectorAll('.player-card-compact'));
+        const total       = cards.length;
 
-        // Pre-fill from URL ?q= param
+        // ── State helpers ─────────────────────────────────────
+        function showPrompt() {
+            prompt.style.display  = 'block';
+            grid.style.display    = 'none';
+            countEl.style.display = 'none';
+            noResults.style.display = 'none';
+        }
+
+        function showGrid() {
+            prompt.style.display  = 'none';
+            grid.style.display    = 'flex';
+            countEl.style.display = 'block';
+        }
+
+        function filterCards(query) {
+            const q = query.toLowerCase().trim();
+
+            if (!q) { showPrompt(); return; }
+
+            showGrid();
+
+            let found = 0;
+            cards.forEach(card => {
+                // data-name can hold multiple aliases separated by spaces
+                const names = card.dataset.name || '';
+                const match = names.split(' ').some(alias => alias.startsWith(q))
+                           || names.includes(q);
+                card.style.display = match ? '' : 'none';
+                if (match) found++;
+            });
+
+            noResults.style.display = found === 0 ? 'block' : 'none';
+            noResultsQ.textContent  = query;
+            countEl.textContent     = found === 0
+                ? ''
+                : `${found} of ${total} player${total !== 1 ? 's' : ''} found`;
+        }
+
+        // ── Pre-fill from ?q= URL param ───────────────────────
         const params = new URLSearchParams(window.location.search);
-        if (params.has('q')) {
+        if (params.has('q') && params.get('q').trim()) {
             searchInput.value = params.get('q');
             filterCards(params.get('q'));
+        } else {
+            showPrompt();
         }
 
+        // ── Live filter on input ──────────────────────────────
         searchInput.addEventListener('input', () => {
             filterCards(searchInput.value);
-            // Update URL without reload so it's shareable
             const url = new URL(window.location);
             if (searchInput.value.trim()) {
                 url.searchParams.set('q', searchInput.value.trim());
@@ -340,22 +449,6 @@
             }
             history.replaceState(null, '', url);
         });
-
-        function filterCards(query) {
-            const q = query.toLowerCase().trim();
-            let found = 0;
-            cards.forEach(card => {
-                const name  = card.dataset.name || '';
-                const match = !q || name.includes(q);
-                card.style.display = match ? '' : 'none';
-                if (match) found++;
-            });
-            noResults.style.display  = found === 0 ? 'block' : 'none';
-            noResultsQ.textContent   = query;
-            countEl.textContent      = q
-                ? `${found} of ${total} player${total !== 1 ? 's' : ''} found`
-                : `Showing all ${total} player${total !== 1 ? 's' : ''}`;
-        }
     </script>
 </body>
 </html>
